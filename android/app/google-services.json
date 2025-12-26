@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "78336302182",
+    "project_id": "homefindr-a3c0b",
+    "storage_bucket": "homefindr-a3c0b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78336302182:android:45026dfd8f54bac06be1a7",
+        "android_client_info": {
+          "package_name": "com.example.homefindr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf6iFT3sSAHiwwMsQrxKkOB1251KYwIz0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
