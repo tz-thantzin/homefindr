@@ -25,7 +25,7 @@ dependencies:
   get_it: ^9.2.0
 
   # Responsive Layout
-  layout: ^1.0.5
+  responsive_builder: ^0.7.1
 
   # Routing & Navigation
   go_router: ^17.0.0
