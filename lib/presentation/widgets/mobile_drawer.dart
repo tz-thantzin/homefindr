@@ -25,27 +25,22 @@ class MobileDrawer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: s20),
               children: [
                 _DrawerLink(
-                  title: "Home",
+                  title: context.localization.nav_home,
                   onTap: () => context.go('/'),
                   hasDropdown: true,
                 ),
                 _DrawerLink(
-                  title: "Listings",
+                  title: context.localization.nav_buy,
                   onTap: () {},
                   hasDropdown: true,
                 ),
                 _DrawerLink(
-                  title: "Members",
+                  title: context.localization.nav_rent,
                   onTap: () {},
                   hasDropdown: true,
                 ),
                 _DrawerLink(
-                  title: "Blog",
-                  onTap: () {},
-                  hasDropdown: true,
-                ),
-                _DrawerLink(
-                  title: "Pages",
+                  title: context.localization.nav_sell,
                   onTap: () {},
                   hasDropdown: true,
                 ),
@@ -114,7 +109,7 @@ class MobileDrawer extends StatelessWidget {
           // Login/Register
           ListTile(
             leading: const Icon(Icons.person_outline, color: kBlack),
-            title: Text("Login / Register", style: context.bodyLarge),
+            title: Text(context.localization.nav_login_register, style: context.bodyLarge),
             onTap: () {},
           ),
           const SizedBox(height: s10),
@@ -131,12 +126,12 @@ class MobileDrawer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(s12),
                 ),
               ),
-              child: const Row(
+              child:  Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Add Property"),
+                  Text(context.localization.nav_contact_us),
                   SizedBox(width: s10),
-                  Icon(Icons.north_east, size: s16),
+                  Icon(Icons.call, size: s16),
                 ],
               ),
             ),

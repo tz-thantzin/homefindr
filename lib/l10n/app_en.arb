@@ -1,3 +1,18 @@
 {
-  "hello": "hello"
+  "the_best_way_to": "THE BEST WAY TO",
+  "find_dream_home": "Find Your Dream Home",
+  "more_than_apartments": "We've more than 745,000 apartments, place & plot.",
+
+  "nav_home": "Home",
+  "nav_buy": "Buy",
+  "nav_rent": "Rent",
+  "nav_sell": "Sell",
+
+  "nav_login_register": "Login / Register",
+  "nav_contact_us": "Contact Us",
+
+  "search_tab_all": "All",
+  "search_tab_for_sale": "For Sale",
+  "search_tab_for_rent": "For Rent",
+  "search_hint_enter_address_neighborhood": "Enter an address, neighborhood, city, or ZIP code"
 }

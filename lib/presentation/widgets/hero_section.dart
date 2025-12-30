@@ -1,7 +1,9 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:homefindr/core/extensions/theme_ex.dart';
+
 import '../../core/constants/constant_colors.dart';
 import '../../core/constants/constant_data.dart';
 import '../../core/constants/constant_sizes.dart';
@@ -78,8 +80,8 @@ class _HeroSectionState extends State<HeroSection> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "THE BEST WAY TO",
+                Text(
+                  context.localization.the_best_way_to.toUpperCase(),
                   style: TextStyle(
                     color: kWhite,
                     letterSpacing: 2,
@@ -89,7 +91,7 @@ class _HeroSectionState extends State<HeroSection> {
                 ),
                 const SizedBox(height: s20),
                 Text(
-                  "Find Your Dream Home",
+                  context.localization.find_dream_home,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: kWhite,
@@ -98,8 +100,8 @@ class _HeroSectionState extends State<HeroSection> {
                   ),
                 ),
                 const SizedBox(height: s10),
-                const Text(
-                  "We've more than 745,000 apartments, place & plot.",
+                Text(
+                  context.localization.more_than_apartments,
                   style: TextStyle(color: kWhite, fontSize: tx18),
                 ),
                 const SizedBox(height: s50),

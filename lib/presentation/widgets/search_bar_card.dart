@@ -26,7 +26,7 @@ class _SearchBarCardState extends State<SearchBarCard> {
       ),
       child: Column(
         children: [
-          _buildTabs(),
+          _buildTabs(context),
           const Divider(height: s1),
           _buildInputRow(context),
         ],
@@ -34,12 +34,12 @@ class _SearchBarCardState extends State<SearchBarCard> {
     );
   }
 
-  Widget _buildTabs() {
+  Widget _buildTabs(BuildContext context) {
     return Row(
       children: [
-        _tabItem("All", 0),
-        _tabItem("For Sale", 1),
-        _tabItem("For Rent", 2),
+        _tabItem(context.localization.search_tab_all, 0),
+        _tabItem(context.localization.search_tab_for_sale, 1),
+        _tabItem(context.localization.search_tab_for_rent, 2),
       ],
     );
   }
@@ -68,21 +68,16 @@ class _SearchBarCardState extends State<SearchBarCard> {
         children: [
           const Icon(Icons.home_outlined, color: kGrey500),
           const SizedBox(width: s10),
-          const Expanded(
+          Expanded(
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Enter an address, neighborhood, city, or ZIP code",
+                hintText: context.localization.search_hint_enter_address_neighborhood,
                 border: InputBorder.none,
                 hintStyle: TextStyle(fontSize: tx14),
               ),
             ),
           ),
-          if (!context.isMobile) ...[
-            const Icon(Icons.tune, size: s20),
-            const SizedBox(width: s5),
-            const Text("Advanced", style: TextStyle(fontWeight: bold)),
-            const SizedBox(width: s15),
-          ],
+
           Container(
             height: s50,
             width: s50,

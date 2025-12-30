@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 
 import 'core/extensions/theme_ex.dart';
 import 'core/router/app_router.dart';
+import 'l10n/app_localizations.dart';
 
 final getIt = GetIt.instance;
 
@@ -22,6 +23,9 @@ class HomezApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: context.theme(),
       routerConfig: AppRouter.router,
+      locale: const Locale('en'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

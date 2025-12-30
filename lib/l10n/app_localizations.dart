@@ -93,11 +93,83 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @hello.
+  /// No description provided for @the_best_way_to.
   ///
   /// In en, this message translates to:
-  /// **'hello'**
-  String get hello;
+  /// **'THE BEST WAY TO'**
+  String get the_best_way_to;
+
+  /// No description provided for @find_dream_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Your Dream Home'**
+  String get find_dream_home;
+
+  /// No description provided for @more_than_apartments.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve more than 745,000 apartments, place & plot.'**
+  String get more_than_apartments;
+
+  /// No description provided for @nav_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get nav_home;
+
+  /// No description provided for @nav_buy.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy'**
+  String get nav_buy;
+
+  /// No description provided for @nav_rent.
+  ///
+  /// In en, this message translates to:
+  /// **'Rent'**
+  String get nav_rent;
+
+  /// No description provided for @nav_sell.
+  ///
+  /// In en, this message translates to:
+  /// **'Sell'**
+  String get nav_sell;
+
+  /// No description provided for @nav_login_register.
+  ///
+  /// In en, this message translates to:
+  /// **'Login / Register'**
+  String get nav_login_register;
+
+  /// No description provided for @nav_contact_us.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get nav_contact_us;
+
+  /// No description provided for @search_tab_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get search_tab_all;
+
+  /// No description provided for @search_tab_for_sale.
+  ///
+  /// In en, this message translates to:
+  /// **'For Sale'**
+  String get search_tab_for_sale;
+
+  /// No description provided for @search_tab_for_rent.
+  ///
+  /// In en, this message translates to:
+  /// **'For Rent'**
+  String get search_tab_for_rent;
+
+  /// No description provided for @search_hint_enter_address_neighborhood.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an address, neighborhood, city, or ZIP code'**
+  String get search_hint_enter_address_neighborhood;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
