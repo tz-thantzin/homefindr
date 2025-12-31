@@ -3,6 +3,7 @@ const double s1 = 1.0;
 const double s2 = 2.0;
 const double s4 = 4.0;
 const double s5 = 5.0;
+const double s6 = 6.0;
 const double s8 = 8.0;
 const double s10 = 10.0;
 const double s12 = 12.0;
@@ -29,6 +30,7 @@ const double s80 = 80.0;
 const double s96 = 96.0;
 const double s100 = 100.0;
 const double s120 = 120.0;
+const double s200 = 200.0;
 
 /// ---------------- Font Size Constants (tx prefix) ----------------
 const double tx10 = 10.0;
@@ -52,3 +54,16 @@ const double tx70 = 70.0;
 const double tx80 = 80.0;
 const double tx96 = 96.0;
 const double tx100 = 100.0;
+
+
+/// ---------------- Layout Constants ----------------
+/// kMaxContentWidth defines the maximum width the content will take on Desktop
+/// screens to ensure it doesn't stretch too far on ultra-wide monitors.
+const double kMaxContentWidth = 1200.0;
+
+/// Navigation heights
+const double kNavHeightDesktop = 100.0;
+const double kNavHeightMobile = 70.0;
+
+/// Specific component widths
+const double kSearchCardWidth = 850.0;

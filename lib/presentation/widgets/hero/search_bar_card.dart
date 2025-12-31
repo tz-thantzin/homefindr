@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/constant_colors.dart';
-import '../../core/constants/constant_sizes.dart';
-import '../../core/extensions/context_ex.dart';
-import '../../core/extensions/theme_ex.dart';
+import '../../../core/constants/constant_colors.dart';
+import '../../../core/constants/constant_sizes.dart';
+import '../../../core/extensions/context_ex.dart';
+import '../../../core/extensions/theme_ex.dart';
 
 class SearchBarCard extends StatefulWidget {
   const SearchBarCard({super.key});

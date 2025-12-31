@@ -4,10 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:homefindr/core/extensions/theme_ex.dart';
 
-import '../../core/constants/constant_colors.dart';
-import '../../core/constants/constant_data.dart';
-import '../../core/constants/constant_sizes.dart';
-import '../../core/extensions/context_ex.dart';
+import '../../../core/constants/constant_colors.dart';
+import '../../../core/constants/constant_data.dart';
+import '../../../core/constants/constant_sizes.dart';
+import '../../../core/extensions/context_ex.dart';
 import 'search_bar_card.dart';
 
 class HeroSection extends StatefulWidget {

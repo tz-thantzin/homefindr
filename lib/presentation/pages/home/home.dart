@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:homefindr/presentation/widgets/property/property_section.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../core/extensions/context_ex.dart';
-import '../../widgets/desktop_nav_bar.dart';
-import '../../widgets/hero_section.dart';
-import '../../widgets/mobile_drawer.dart';
+import '../../widgets/hero/desktop_nav_bar.dart';
+import '../../widgets/hero/hero_section.dart';
+import '../../widgets/hero/mobile_drawer.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -24,6 +25,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             HeroSection(),
+            PropertySection()
           ],
         ),
       ),
