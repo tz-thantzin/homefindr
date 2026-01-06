@@ -1,6 +1,7 @@
 import '../../domain/models/property.dart';
 
-// List of 5 high-quality real estate images
+
+/// List of 5 high-quality real estate images for Hero Section
 final List<String> heroBgImages = [
   'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80',
   'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80',
@@ -9,21 +10,16 @@ final List<String> heroBgImages = [
   'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80',
 ];
 
-
 /// Generates a list of 500 mock properties for the Homez app.
 final List<Property> mockProperties = List.generate(500, (index) {
-  // Deterministic random-like variables based on index
-  // final isEven = index % 2 == 0;
-  final cityIndex = index % 5;
-  final neighborhoodIndex = index % 5;
-
   final cities = ["New York", "Los Angeles", "Chicago", "Miami", "Austin"];
   final neighborhoods = ["Manhattan", "Beverly Hills", "Lincoln Park", "South Beach", "Downtown"];
-  final propertyTypes = ["Modern Apartment", "Luxury Villa", "Cozy Studio", "Penthouse", "Family Home"];
 
-  final city = cities[cityIndex];
-  final neighborhood = neighborhoods[neighborhoodIndex];
-  final type = propertyTypes[index % propertyTypes.length];
+  // Assign PropertyType enum based on rotation
+  final typeEnum = PropertyType.values[index % PropertyType.values.length];
+
+  final city = cities[index % cities.length];
+  final neighborhood = neighborhoods[index % neighborhoods.length];
 
   // Status Logic: 30% For Rent, 60% For Sale, 10% Sold
   String status = "For Sale";
@@ -44,10 +40,11 @@ final List<Property> mockProperties = List.generate(500, (index) {
 
   return Property(
     id: 'prop_${index + 1}',
-    title: '$type in $neighborhood',
+    title: '${_capitalize(typeEnum.name)} in $neighborhood',
     location: '$neighborhood, $city, USA',
     price: formattedPrice,
     status: status,
+    type: typeEnum,
     beds: (index % 4) + 1,
     baths: (index % 3) + 1,
     sqft: 850 + (index * 12),
@@ -64,6 +61,9 @@ String _formatNumber(int number) {
         (Match m) => '${m[1]},',
   );
 }
+
+/// Helper to capitalize enum names for titles
+String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
 /// Rotating high-quality architectural images
 String _getImageUrl(int index) {

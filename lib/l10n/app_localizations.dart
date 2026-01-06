@@ -170,6 +170,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter an address, neighborhood, city, or ZIP code'**
   String get search_hint_enter_address_neighborhood;
+
+  /// No description provided for @property_discover_our_latest.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover Our Latest Properties'**
+  String get property_discover_our_latest;
+
+  /// No description provided for @property_explore_newest_listing.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the newest listings in your favorite neighborhoods.'**
+  String get property_explore_newest_listing;
+
+  /// No description provided for @property_view_all_properties_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'View All Properties'**
+  String get property_view_all_properties_btn;
+
+  /// No description provided for @property_type_section_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Property Types'**
+  String get property_type_section_title;
+
+  /// No description provided for @property_type_section_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find your dream home by browsing through various categories.'**
+  String get property_type_section_subtitle;
+
+  /// No description provided for @property_type_section_apartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Apartment'**
+  String get property_type_section_apartment;
+
+  /// No description provided for @property_type_section_villa.
+  ///
+  /// In en, this message translates to:
+  /// **'Villa'**
+  String get property_type_section_villa;
+
+  /// No description provided for @property_type_section_studio.
+  ///
+  /// In en, this message translates to:
+  /// **'Studio'**
+  String get property_type_section_studio;
+
+  /// No description provided for @property_type_section_office.
+  ///
+  /// In en, this message translates to:
+  /// **'Office'**
+  String get property_type_section_office;
+
+  /// No description provided for @property_type_section_townhouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Townhouse'**
+  String get property_type_section_townhouse;
+
+  /// No description provided for @property_type_section_properties_suffix.
+  ///
+  /// In en, this message translates to:
+  /// **'Properties'**
+  String get property_type_section_properties_suffix;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -46,4 +46,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get search_hint_enter_address_neighborhood => 'Enter an address, neighborhood, city, or ZIP code';
+
+  @override
+  String get property_discover_our_latest => 'Discover Our Latest Properties';
+
+  @override
+  String get property_explore_newest_listing => 'Explore the newest listings in your favorite neighborhoods.';
+
+  @override
+  String get property_view_all_properties_btn => 'View All Properties';
+
+  @override
+  String get property_type_section_title => 'Explore Property Types';
+
+  @override
+  String get property_type_section_subtitle => 'Find your dream home by browsing through various categories.';
+
+  @override
+  String get property_type_section_apartment => 'Apartment';
+
+  @override
+  String get property_type_section_villa => 'Villa';
+
+  @override
+  String get property_type_section_studio => 'Studio';
+
+  @override
+  String get property_type_section_office => 'Office';
+
+  @override
+  String get property_type_section_townhouse => 'Townhouse';
+
+  @override
+  String get property_type_section_properties_suffix => 'Properties';
 }
