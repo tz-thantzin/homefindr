@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:homefindr/core/extensions/theme_ex.dart';
 
-import '../constants/constant_sizes.dart';
+import '../../../core/constants/constant_sizes.dart';
+import '../../../core/extensions/theme_ex.dart';
 
 class CustomBrandButton extends StatelessWidget {
   final String label;
@@ -29,7 +29,7 @@ class CustomBrandButton extends StatelessWidget {
             style: TextStyle(fontSize: tx20, fontWeight: bold, color: color, letterSpacing: 0.5),
           ),
           const SizedBox(width: s20),
-          if (icon != null) Icon(icon, size: s28, color: color, weight: 200,),
+          if (icon != null) Icon(icon, size: s28, color: color, weight: 200),
         ],
       ),
     );

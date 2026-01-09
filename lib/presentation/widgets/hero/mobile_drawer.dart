@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../core/constants/constant_colors.dart';
 import '../../../core/constants/constant_sizes.dart';
 import '../../../core/extensions/context_ex.dart';
 import '../../../core/extensions/theme_ex.dart';
+import '../common/nav_logo.dart';
 
 
 class MobileDrawer extends StatelessWidget {
@@ -71,24 +71,7 @@ class MobileDrawer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Brand Logo
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(s8),
-                decoration: const BoxDecoration(
-                  color: kPrimary,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.home, color: kWhite, size: s18),
-              ),
-              const SizedBox(width: s10),
-              Text(
-                "homez",
-                style: context.labelLarge.copyWith(color: kBlack),
-              ),
-            ],
-          ),
+          const NavLogo(),
           // Close Button
           IconButton(
             icon: const Icon(Icons.close, color: kBlack),

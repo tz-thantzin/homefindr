@@ -79,4 +79,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get property_type_section_properties_suffix => 'Properties';
+
+  @override
+  String get footer_description => 'We are a leading real estate agency helping thousands of people find their dream homes. Our expertise spans across major cities globally.';
+
+  @override
+  String get footer_newsletter_title => 'Subscribe to our newsletter';
+
+  @override
+  String get footer_newsletter_hint => 'Your Email';
+
+  @override
+  String get footer_quick_links => 'Quick Links';
+
+  @override
+  String get footer_support => 'Support';
+
+  @override
+  String get footer_contact_us => 'Contact Us';
+
+  @override
+  String get footer_rights_reserved => '© 2026 Homez. All rights reserved.';
+
+  @override
+  String get footer_help_center => 'Help Center';
+
+  @override
+  String get footer_privacy_policy => 'Privacy Policy';
+
+  @override
+  String get footer_terms_service => 'Terms of Service';
+
+  @override
+  String get footer_faq => 'FAQ';
+
+  @override
+  String get footer_monday_friday => 'Mon - Sat: 9:00 AM - 6:00 PM';
 }

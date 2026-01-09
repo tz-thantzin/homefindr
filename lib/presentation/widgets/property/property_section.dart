@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:homefindr/core/extensions/context_ex.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../core/constants/constant_colors.dart';
 import '../../../core/constants/constant_sizes.dart';
-import '../../../core/widgets/animated_slide_button.dart';
+import '../../../core/extensions/context_ex.dart';
 import '../../view_models/property_view_model.dart';
+import '../common/animated_slide_button.dart';
 import 'property_card.dart';
 
 class PropertySection extends ConsumerStatefulWidget {

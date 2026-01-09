@@ -236,6 +236,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Properties'**
   String get property_type_section_properties_suffix;
+
+  /// No description provided for @footer_description.
+  ///
+  /// In en, this message translates to:
+  /// **'We are a leading real estate agency helping thousands of people find their dream homes. Our expertise spans across major cities globally.'**
+  String get footer_description;
+
+  /// No description provided for @footer_newsletter_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to our newsletter'**
+  String get footer_newsletter_title;
+
+  /// No description provided for @footer_newsletter_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Email'**
+  String get footer_newsletter_hint;
+
+  /// No description provided for @footer_quick_links.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Links'**
+  String get footer_quick_links;
+
+  /// No description provided for @footer_support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get footer_support;
+
+  /// No description provided for @footer_contact_us.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get footer_contact_us;
+
+  /// No description provided for @footer_rights_reserved.
+  ///
+  /// In en, this message translates to:
+  /// **'© 2026 Homez. All rights reserved.'**
+  String get footer_rights_reserved;
+
+  /// No description provided for @footer_help_center.
+  ///
+  /// In en, this message translates to:
+  /// **'Help Center'**
+  String get footer_help_center;
+
+  /// No description provided for @footer_privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get footer_privacy_policy;
+
+  /// No description provided for @footer_terms_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get footer_terms_service;
+
+  /// No description provided for @footer_faq.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQ'**
+  String get footer_faq;
+
+  /// No description provided for @footer_monday_friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon - Sat: 9:00 AM - 6:00 PM'**
+  String get footer_monday_friday;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

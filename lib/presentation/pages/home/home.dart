@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homefindr/presentation/widgets/footer/footer_section.dart';
 import 'package:homefindr/presentation/widgets/property/property_section.dart';
 import 'package:homefindr/presentation/widgets/property_type/property_type_section.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -27,7 +28,8 @@ class HomeScreen extends StatelessWidget {
           children: [
             HeroSection(),
             PropertySection(),
-            PropertyTypeSection()
+            PropertyTypeSection(),
+            FooterSection()
           ],
         ),
       ),
