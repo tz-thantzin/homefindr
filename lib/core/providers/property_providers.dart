@@ -12,7 +12,7 @@ final propertyRepositoryProvider = Provider<PropertyRepository>((ref) {
 });
 
 /// ------------------------------------------------------------
-/// Base Properties Provider (SOURCE OF TRUTH)
+/// Base Properties Provider
 /// ------------------------------------------------------------
 final propertiesProvider = FutureProvider<List<Property>>((ref) async {
   final repo = ref.watch(propertyRepositoryProvider);
