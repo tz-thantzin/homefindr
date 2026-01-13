@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../core/constants/constant_colors.dart';
 import '../../../core/constants/constant_sizes.dart';
 import '../../../core/extensions/context_ex.dart';
 import '../../../core/extensions/theme_ex.dart';
 import '../common/nav_logo.dart';
-
 
 class MobileDrawer extends StatelessWidget {
   const MobileDrawer({super.key});
@@ -25,26 +25,10 @@ class MobileDrawer extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: s20),
               children: [
-                _DrawerLink(
-                  title: context.localization.nav_home,
-                  onTap: () => context.go('/'),
-                  hasDropdown: true,
-                ),
-                _DrawerLink(
-                  title: context.localization.nav_buy,
-                  onTap: () {},
-                  hasDropdown: true,
-                ),
-                _DrawerLink(
-                  title: context.localization.nav_rent,
-                  onTap: () {},
-                  hasDropdown: true,
-                ),
-                _DrawerLink(
-                  title: context.localization.nav_sell,
-                  onTap: () {},
-                  hasDropdown: true,
-                ),
+                _DrawerLink(title: context.localization.nav_home, onTap: () => context.go('/'), hasDropdown: true),
+                _DrawerLink(title: context.localization.nav_buy, onTap: () {}, hasDropdown: true),
+                _DrawerLink(title: context.localization.nav_rent, onTap: () {}, hasDropdown: true),
+                _DrawerLink(title: context.localization.nav_sell, onTap: () {}, hasDropdown: true),
               ],
             ),
           ),
@@ -58,14 +42,9 @@ class MobileDrawer extends StatelessWidget {
 
   Widget _buildDrawerHeader(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top + 20,
-        bottom: s20,
-        left: s20,
-        right: s20,
-      ),
-      decoration: const BoxDecoration(
-        color: kGrey100,
+      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20, bottom: s20, left: s20, right: s20),
+      decoration: BoxDecoration(
+        color: kBlack.withValues(alpha: 0.7),
         border: Border(bottom: BorderSide(color: kBlack12)),
       ),
       child: Row(
@@ -74,7 +53,7 @@ class MobileDrawer extends StatelessWidget {
           const NavLogo(),
           // Close Button
           IconButton(
-            icon: const Icon(Icons.close, color: kBlack),
+            icon: const Icon(Icons.close, color: kWhite),
             onPressed: () => Navigator.pop(context),
           ),
         ],
@@ -106,14 +85,15 @@ class MobileDrawer extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: kPrimary,
                 foregroundColor: kWhite,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(s12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(s12)),
               ),
-              child:  Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(context.localization.nav_contact_us),
+                  Text(
+                    context.localization.nav_contact_us,
+                    style: const TextStyle(color: kWhite, fontSize: tx14),
+                  ),
                   SizedBox(width: s10),
                   Icon(Icons.call, size: s16),
                 ],
@@ -131,23 +111,14 @@ class _DrawerLink extends StatelessWidget {
   final VoidCallback onTap;
   final bool hasDropdown;
 
-  const _DrawerLink({
-    required this.title,
-    required this.onTap,
-    this.hasDropdown = false,
-  });
+  const _DrawerLink({required this.title, required this.onTap, this.hasDropdown = false});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: s25, vertical: s5),
-      title: Text(
-        title,
-        style: context.bodyLarge.copyWith(fontWeight: FontWeight.w600),
-      ),
-      trailing: hasDropdown
-          ? const Icon(Icons.chevron_right, size: s18, color: kGrey500)
-          : null,
+      title: Text(title, style: context.bodyLarge.copyWith(fontWeight: FontWeight.w600)),
+      trailing: hasDropdown ? const Icon(Icons.chevron_right, size: s18, color: kGrey500) : null,
       onTap: onTap,
     );
   }

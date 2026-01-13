@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homez/presentation/widgets/common/nav_logo.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../core/constants/constant_colors.dart';
@@ -113,16 +114,7 @@ class FooterBrandCol extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(
-          children: [
-            Icon(Icons.home_work, color: kWhite, size: s28),
-            SizedBox(width: s10),
-            Text(
-              "homez",
-              style: TextStyle(color: kWhite, fontSize: tx24, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+        const NavLogo(disableTap: true),
         const SizedBox(height: s20),
         Text(
           context.localization.footer_description,
@@ -209,7 +201,7 @@ class _FooterContactCol extends StatelessWidget {
         ),
         const SizedBox(height: s25),
         const _ContactItem(icon: Icons.location_on_outlined, text: "Bangkok, Thailand"),
-        const _ContactItem(icon: Icons.phone_outlined, text: "+66 123-123-123"),
+        const _ContactItem(icon: Icons.phone_outlined, text: "+95 123-123-123"),
         const _ContactItem(icon: Icons.email_outlined, text: "support@homez.com"),
         _ContactItem(icon: Icons.access_time, text: context.localization.footer_monday_friday),
       ],
