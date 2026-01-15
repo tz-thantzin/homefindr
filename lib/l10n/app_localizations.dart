@@ -237,6 +237,132 @@ abstract class AppLocalizations {
   /// **'Properties'**
   String get property_type_section_properties_suffix;
 
+  /// No description provided for @subscription_section_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Your Plan'**
+  String get subscription_section_title;
+
+  /// No description provided for @subscription_section_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Flexible plans for every stage of your business growth.'**
+  String get subscription_section_subtitle;
+
+  /// No description provided for @subscription_section_monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get subscription_section_monthly;
+
+  /// No description provided for @subscription_section_yearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get subscription_section_yearly;
+
+  /// No description provided for @subscription_section_most_popular.
+  ///
+  /// In en, this message translates to:
+  /// **'MOST POPULAR'**
+  String get subscription_section_most_popular;
+
+  /// No description provided for @subscription_section_per_month.
+  ///
+  /// In en, this message translates to:
+  /// **'/mo'**
+  String get subscription_section_per_month;
+
+  /// No description provided for @subscription_section_get_started.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get subscription_section_get_started;
+
+  /// No description provided for @subscription_section_basic_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic'**
+  String get subscription_section_basic_title;
+
+  /// No description provided for @subscription_section_basic_feature_1.
+  ///
+  /// In en, this message translates to:
+  /// **'5 Projects'**
+  String get subscription_section_basic_feature_1;
+
+  /// No description provided for @subscription_section_basic_feature_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Analytics'**
+  String get subscription_section_basic_feature_2;
+
+  /// No description provided for @subscription_section_basic_feature_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Community Support'**
+  String get subscription_section_basic_feature_3;
+
+  /// No description provided for @subscription_section_business_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get subscription_section_business_title;
+
+  /// No description provided for @subscription_section_business_feature_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited Projects'**
+  String get subscription_section_business_feature_1;
+
+  /// No description provided for @subscription_section_business_feature_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced AI'**
+  String get subscription_section_business_feature_2;
+
+  /// No description provided for @subscription_section_business_feature_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority Support'**
+  String get subscription_section_business_feature_3;
+
+  /// No description provided for @subscription_section_business_feature_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Branding'**
+  String get subscription_section_business_feature_4;
+
+  /// No description provided for @subscription_section_pro_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get subscription_section_pro_title;
+
+  /// No description provided for @subscription_section_pro_feature_1.
+  ///
+  /// In en, this message translates to:
+  /// **'White Label'**
+  String get subscription_section_pro_feature_1;
+
+  /// No description provided for @subscription_section_pro_feature_2.
+  ///
+  /// In en, this message translates to:
+  /// **'API Access'**
+  String get subscription_section_pro_feature_2;
+
+  /// No description provided for @subscription_section_pro_feature_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Dedicated Manager'**
+  String get subscription_section_pro_feature_3;
+
+  /// No description provided for @subscription_section_pro_feature_4.
+  ///
+  /// In en, this message translates to:
+  /// **'SLA Guarantee'**
+  String get subscription_section_pro_feature_4;
+
   /// No description provided for @footer_description.
   ///
   /// In en, this message translates to:
@@ -308,6 +434,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mon - Sat: 9:00 AM - 6:00 PM'**
   String get footer_monday_friday;
+
+  /// No description provided for @page_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Page Not Found'**
+  String get page_not_found;
+
+  /// No description provided for @the_page_you_are_looking_for_does_not_exist.
+  ///
+  /// In en, this message translates to:
+  /// **'The page you\'re looking for doesn\'t exist or has been moved.'**
+  String get the_page_you_are_looking_for_does_not_exist;
+
+  /// No description provided for @go_back_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back Home'**
+  String get go_back_home;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

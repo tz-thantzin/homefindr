@@ -16,8 +16,8 @@ class NavLogo extends StatelessWidget {
       onTap: disableTap
           ? null
           : () {
-              context.go(AppRouter.home);
-            },
+        context.goNamed(RouteName.home);
+      },
       borderRadius: BorderRadius.circular(s40),
       child: Image.asset(kNavLogo, height: s40, fit: BoxFit.contain),
     );

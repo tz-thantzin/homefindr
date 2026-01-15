@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homefindr/presentation/widgets/subscription/subscription_section.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../core/extensions/context_ex.dart';
@@ -26,7 +27,9 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: const SingleChildScrollView(
-        child: Column(children: [HeroSection(), PropertySection(), PropertyTypeSection(), FooterSection()]),
+        child: Column(
+          children: [HeroSection(), PropertySection(), PropertyTypeSection(), SubscriptionSection(), FooterSection()],
+        ),
       ),
     );
   }

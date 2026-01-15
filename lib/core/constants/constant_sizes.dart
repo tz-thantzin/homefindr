@@ -31,6 +31,7 @@ const double s80 = 80.0;
 const double s96 = 96.0;
 const double s100 = 100.0;
 const double s120 = 120.0;
+const double s150 = 150.0;
 const double s200 = 200.0;
 
 /// ---------------- Font Size Constants (tx prefix) ----------------

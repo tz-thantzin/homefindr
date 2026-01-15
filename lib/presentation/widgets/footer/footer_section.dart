@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homez/presentation/widgets/common/nav_logo.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../core/constants/constant_colors.dart';
 import '../../../core/constants/constant_sizes.dart';
 import '../../../core/extensions/context_ex.dart';
+import '../common/nav_logo.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
@@ -171,10 +172,13 @@ class _FooterLinksCol extends StatelessWidget {
         ),
         const SizedBox(height: s25),
         ...links.map(
-          (link) => Padding(
+              (link) => Padding(
             padding: const EdgeInsets.only(bottom: s15),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                debugPrint("Footer Link Pressed:: $link");
+                context.goNamed(link);
+              },
               child: Text(
                 link,
                 style: const TextStyle(color: Colors.white60, fontSize: tx14),

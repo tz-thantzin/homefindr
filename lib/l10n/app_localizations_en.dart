@@ -81,6 +81,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String get property_type_section_properties_suffix => 'Properties';
 
   @override
+  String get subscription_section_title => 'Choose Your Plan';
+
+  @override
+  String get subscription_section_subtitle => 'Flexible plans for every stage of your business growth.';
+
+  @override
+  String get subscription_section_monthly => 'Monthly';
+
+  @override
+  String get subscription_section_yearly => 'Yearly';
+
+  @override
+  String get subscription_section_most_popular => 'MOST POPULAR';
+
+  @override
+  String get subscription_section_per_month => '/mo';
+
+  @override
+  String get subscription_section_get_started => 'Get Started';
+
+  @override
+  String get subscription_section_basic_title => 'Basic';
+
+  @override
+  String get subscription_section_basic_feature_1 => '5 Projects';
+
+  @override
+  String get subscription_section_basic_feature_2 => 'Basic Analytics';
+
+  @override
+  String get subscription_section_basic_feature_3 => 'Community Support';
+
+  @override
+  String get subscription_section_business_title => 'Business';
+
+  @override
+  String get subscription_section_business_feature_1 => 'Unlimited Projects';
+
+  @override
+  String get subscription_section_business_feature_2 => 'Advanced AI';
+
+  @override
+  String get subscription_section_business_feature_3 => 'Priority Support';
+
+  @override
+  String get subscription_section_business_feature_4 => 'Custom Branding';
+
+  @override
+  String get subscription_section_pro_title => 'Pro';
+
+  @override
+  String get subscription_section_pro_feature_1 => 'White Label';
+
+  @override
+  String get subscription_section_pro_feature_2 => 'API Access';
+
+  @override
+  String get subscription_section_pro_feature_3 => 'Dedicated Manager';
+
+  @override
+  String get subscription_section_pro_feature_4 => 'SLA Guarantee';
+
+  @override
   String get footer_description => 'We are a leading real estate agency helping thousands of people find their dream homes. Our expertise spans across major cities globally.';
 
   @override
@@ -115,4 +178,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get footer_monday_friday => 'Mon - Sat: 9:00 AM - 6:00 PM';
+
+  @override
+  String get page_not_found => 'Page Not Found';
+
+  @override
+  String get the_page_you_are_looking_for_does_not_exist => 'The page you\'re looking for doesn\'t exist or has been moved.';
+
+  @override
+  String get go_back_home => 'Go Back Home';
 }
