@@ -5,20 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad912784-b934-49d8-93af-0f3745bc4eef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/page_not_found.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/core/extensions/padding_ex.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/presentation/widgets/page_not_found.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/core/providers/locale_provider.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/l10n/app_ja.arb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/l10n/app_my.arb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/l10n/app_th.arb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/l10n/app_zh.arb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/buy_rent/buy_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/buy_rent/property_listing.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/buy_rent/rent_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/contact/contact_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/home/home_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/property/property_details_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/search/search_result/search_result_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/widgets/hero/mobile_nav_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constants/constant_colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/constants/constant_colors.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constants/constant_images.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/constants/constant_images.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebase.json" beforeDir="false" afterPath="$PROJECT_DIR$/firebase.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/core/constants/constant_sizes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/constants/constant_sizes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/providers/property_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/providers/property_providers.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/core/router/app_router.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/router/app_router.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repositories/property_repository_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repositories/property_repository_impl.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/l10n/app_en.arb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_en.arb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/l10n/app_localizations.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_localizations.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/l10n/app_localizations_en.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_localizations_en.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/home/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/home/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/common/nav_logo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/common/nav_logo.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/footer/footer_section.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/footer/footer_section.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/home/home.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/hero/desktop_nav_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/hero/desktop_nav_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/hero/mobile_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/hero/mobile_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/hero/search_bar_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/hero/search_bar_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/property/property_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/property/property_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/subscription/subscription_section.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/subscription/subscription_section.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,17 +101,17 @@
     "io.flutter.project.isFirstOpen": "true",
     "io.flutter.reload.alreadyRun": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/thantzin/Desktop/Projects/git/flutter/homefindr/assets/images",
+    "last_opened_file_path": "/Users/thantzin/Desktop/Projects/git/flutter/homefindr/lib/l10n",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/l10n" />
       <recent name="$PROJECT_DIR$/assets/images" />
       <recent name="$PROJECT_DIR$/lib/core/extensions" />
       <recent name="$PROJECT_DIR$/lib/presentation/widgets" />
       <recent name="$PROJECT_DIR$/web/icons" />
-      <recent name="$PROJECT_DIR$/web" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib/presentation/widgets/property" />

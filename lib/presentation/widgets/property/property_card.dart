@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../core/constants/constant_colors.dart';
+import '../../../core/extensions/context_ex.dart';
 import '../../../core/constants/constant_sizes.dart';
 
 class PropertyCard extends StatefulWidget {
@@ -14,6 +15,7 @@ class PropertyCard extends StatefulWidget {
   final int beds;
   final int baths;
   final int sqft;
+  final bool isFeatured;
 
   const PropertyCard({
     super.key,
@@ -25,6 +27,7 @@ class PropertyCard extends StatefulWidget {
     required this.beds,
     required this.baths,
     required this.sqft,
+    this.isFeatured = false,
   });
 
   @override
@@ -81,11 +84,11 @@ class _PropertyCardState extends State<PropertyCard> {
                   left: s16,
                   child: Row(
                     children: [
-                      _buildBadge(widget.status, widget.status == "For Rent" ? kSecondary : kPrimary)
+                      _buildBadge(_localizedStatus(context, widget.status), widget.status == "For Rent" ? kSecondary : widget.status == "Sold" ? kGrey500 : kPrimary)
                           .animate()
                           .scale(duration: 400.ms, curve: Curves.easeOutBack),
                       const SizedBox(width: s8),
-                      _buildBadge("Featured", kBlue)
+                      if (widget.isFeatured) _buildBadge(context.localization.property_card_featured, kBlue)
                           .animate()
                           .scale(delay: 100.ms, duration: 400.ms, curve: Curves.easeOutBack),
                     ],
@@ -140,8 +143,8 @@ class _PropertyCardState extends State<PropertyCard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _iconDetail(Icons.king_bed_outlined, "${widget.beds} Beds"),
-                      _iconDetail(Icons.bathtub_outlined, "${widget.baths} Baths"),
+                      _iconDetail(Icons.king_bed_outlined, "${widget.beds} ${context.localization.property_detail_beds}"),
+                      _iconDetail(Icons.bathtub_outlined, "${widget.baths} ${context.localization.property_detail_baths}"),
                       _iconDetail(Icons.square_foot, "${widget.sqft} sqft"),
                     ],
                   ),
@@ -191,5 +194,14 @@ class _PropertyCardState extends State<PropertyCard> {
         Text(text, style: const TextStyle(fontSize: tx14, color: kGrey500)),
       ],
     );
+  }
+}
+
+String _localizedStatus(BuildContext context, String status) {
+  switch (status) {
+    case 'For Sale': return context.localization.search_tab_for_sale;
+    case 'For Rent': return context.localization.search_tab_for_rent;
+    case 'Sold':     return context.localization.search_filter_sold;
+    default:         return status;
   }
 }

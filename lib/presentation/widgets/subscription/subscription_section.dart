@@ -268,156 +268,161 @@ class _PricingCardState extends State<_PricingCard> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child:
-          AnimatedContainer(
-                duration: 300.ms,
-                curve: Curves.easeInOut,
-                padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: s32),
+      AnimatedContainer(
+        duration: 300.ms,
+        curve: Curves.easeInOut,
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: s24),
+        decoration: BoxDecoration(
+          color: kWhite,
+          borderRadius: BorderRadius.circular(s24),
+          border: Border.all(
+            color: _isHovered ? accentColor : const Color(0xFFE2E8F0),
+            width: _isHovered ? 2 : 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: _isHovered ? accentColor.withValues(alpha: 0.1) : kBlack.withValues(alpha: 0.03),
+              blurRadius: _isHovered ? 30 : 20,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            // Popular badge — only renders for popular card
+            if (widget.isPopular)
+              Container(
+                margin: const EdgeInsets.only(bottom: s16),
+                padding: const EdgeInsets.symmetric(horizontal: s12, vertical: s4),
                 decoration: BoxDecoration(
-                  color: kWhite,
-                  borderRadius: BorderRadius.circular(s24),
-                  border: Border.all(
-                    color: _isHovered ? accentColor : const Color(0xFFE2E8F0),
-                    width: _isHovered ? 2 : 1,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: _isHovered ? accentColor.withValues(alpha: 0.1) : kBlack.withValues(alpha: 0.03),
-                      blurRadius: _isHovered ? 30 : 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
+                  color: accentColor.withValues(alpha: .1),
+                  borderRadius: BorderRadius.circular(s12),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Popular Tag Placeholder
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: s12, vertical: s4),
-                      decoration: BoxDecoration(
-                        color: widget.isPopular ? accentColor.withValues(alpha: .1) : kTransparent,
-                        borderRadius: BorderRadius.circular(s12),
-                      ),
-                      child: Text(
-                        context.localization.subscription_section_most_popular,
-                        style: GoogleFonts.inter(
-                          fontSize: tx12,
+                child: Text(
+                  context.localization.subscription_section_most_popular,
+                  style: GoogleFonts.inter(
+                    fontSize: tx12,
+                    fontWeight: FontWeight.bold,
+                    color: accentColor,
+                  ),
+                ),
+              )
+            else
+              const SizedBox(height: s4),
+
+            // Header Row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.poppins(
+                          fontSize: tx24,
                           fontWeight: FontWeight.bold,
-                          color: widget.isPopular ? accentColor : kTransparent,
+                          color: kSecondary,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: s16),
-
-                    // Header Row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.title,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.poppins(
-                                  fontSize: tx24,
-                                  fontWeight: FontWeight.bold,
-                                  color: kSecondary,
-                                ),
-                              ),
-                              const SizedBox(height: s8),
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                alignment: Alignment.centerLeft,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "\$${widget.price}",
-                                      style: GoogleFonts.poppins(
-                                        fontSize: tx48,
-                                        fontWeight: FontWeight.bold,
-                                        color: kSecondary,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: s12, left: s4),
-                                      child: Text(
-                                        context.localization.subscription_section_per_month,
-                                        style: GoogleFonts.inter(fontSize: tx16, color: const Color(0xFF64748B)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: s8),
-                        Image.asset(
-                          widget.iconPath,
-                          width: currentIconSize,
-                          height: currentIconSize,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Icon(Icons.star, size: currentIconSize, color: accentColor),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: s32),
-                    const Divider(color: Color(0xFFF1F5F9)),
-                    const SizedBox(height: s32),
-
-                    // Features List
-                    ...widget.features.map(
-                      (feature) => Padding(
-                        padding: const EdgeInsets.only(bottom: s16),
+                      const SizedBox(height: s8),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Icon(Icons.check_circle, size: s20, color: accentColor),
-                            const SizedBox(width: s12),
-                            Expanded(
+                            Text(
+                              "\$${widget.price}",
+                              style: GoogleFonts.poppins(
+                                fontSize: tx48,
+                                fontWeight: FontWeight.bold,
+                                color: kSecondary,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: s12, left: s4),
                               child: Text(
-                                feature,
-                                style: GoogleFonts.inter(fontSize: tx14, color: const Color(0xFF475569)),
+                                context.localization.subscription_section_per_month,
+                                style: GoogleFonts.inter(fontSize: tx16, color: const Color(0xFF64748B)),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-
-                    // Conditional spacer: only used when intrinsic height constraints are fixed (Desktop/Tablet)
-                    if (widget.isExpanded) const Spacer() else const SizedBox(height: s32),
-
-                    // Action Button
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: widget.isPopular ? accentColor : kWhite,
-                          foregroundColor: widget.isPopular ? kWhite : accentColor,
-                          elevation: 0,
-                          padding: const EdgeInsets.symmetric(vertical: s20),
-                          side: BorderSide(color: accentColor),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(s12)),
-                        ),
-                        child: Text(
-                          context.localization.subscription_section_get_started,
-                          style: GoogleFonts.inter(fontSize: tx16, fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              )
-              .animate(target: _isHovered ? 1 : 0)
-              .scale(begin: const Offset(1, 1), end: const Offset(1.02, 1.02), curve: Curves.easeOutCubic),
+                const SizedBox(width: s8),
+                Image.asset(
+                  widget.iconPath,
+                  width: currentIconSize,
+                  height: currentIconSize,
+                  errorBuilder: (context, error, stackTrace) =>
+                      Icon(Icons.star, size: currentIconSize, color: accentColor),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: s32),
+            const Divider(color: Color(0xFFF1F5F9)),
+            const SizedBox(height: s32),
+
+            // Features List
+            ...widget.features.map(
+                  (feature) =>
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: s16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Icons.check_circle, size: s20, color: accentColor),
+                        const SizedBox(width: s12),
+                        Expanded(
+                          child: Text(
+                            feature,
+                            style: GoogleFonts.inter(fontSize: tx14, color: const Color(0xFF475569)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+            ),
+
+            // Conditional spacer: only used when intrinsic height constraints are fixed (Desktop/Tablet)
+            if (widget.isExpanded) const Spacer() else
+              const SizedBox(height: s32),
+
+            // Action Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: widget.isPopular ? accentColor : kWhite,
+                  foregroundColor: widget.isPopular ? kWhite : accentColor,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(vertical: s20),
+                  side: BorderSide(color: accentColor),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(s12)),
+                ),
+                child: Text(
+                  context.localization.subscription_section_get_started,
+                  style: GoogleFonts.inter(fontSize: tx16, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+          ],
+        ),
+      )
+          .animate(target: _isHovered ? 1 : 0)
+          .elevation(begin: 0, end: 8, curve: Curves.easeOutCubic),
     );
   }
 }
