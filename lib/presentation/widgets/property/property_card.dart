@@ -75,7 +75,18 @@ class _PropertyCardState extends State<PropertyCard> {
                     height: 240,
                     width: double.infinity,
                     fit: BoxFit.cover,
-                    placeholder: (context, url) => Container(color: kGrey100),
+                    placeholder: (_, _) => Container(color: kGrey200),
+                    errorWidget: (_, _, _) => Container(
+                      color: kGrey100,
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.image_not_supported_outlined, size: 40, color: kGrey400),
+                          SizedBox(height: 6),
+                          Text('Image unavailable', style: TextStyle(fontSize: 11, color: kGrey400)),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 // Badges

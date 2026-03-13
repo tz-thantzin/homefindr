@@ -58,8 +58,8 @@ class _SearchResultsScreenState extends ConsumerState<SearchResultsScreen> {
     var result = all.where((p) {
       final matchQuery =
           _searchQuery.isEmpty ||
-          p.title.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-          p.location.toLowerCase().contains(_searchQuery.toLowerCase());
+              p.title.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+              p.location.toLowerCase().contains(_searchQuery.toLowerCase());
       final matchStatus = _activeStatus.isEmpty || p.status == _activeStatus;
       final matchType = _activeType.isEmpty || p.type.name.toLowerCase() == _activeType.toLowerCase();
       final matchBeds = _minBeds == 0 || p.beds >= _minBeds;
@@ -85,7 +85,6 @@ class _SearchResultsScreenState extends ConsumerState<SearchResultsScreen> {
     final propertiesAsync = ref.watch(propertiesViewModel);
 
     return Scaffold(
-      backgroundColor: kGrey100,
       drawer: context.isDesktop ? null : const MobileDrawer(),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
@@ -257,7 +256,7 @@ class _SearchHeader extends StatelessWidget {
             ),
             const Spacer(),
             if (!compact)
-              // Inline search bar for desktop
+            // Inline search bar for desktop
               Container(
                 width: 320,
                 height: s42,
@@ -319,26 +318,26 @@ class _ResultsGrid extends StatelessWidget {
       itemBuilder: (context, i) {
         final p = properties[i];
         return GestureDetector(
-              onTap: () => context.goNamed(RouteName.propertyDetail, pathParameters: {'id': p.id}),
-              child: Hero(
-                tag: 'property_image_${p.id}',
-                child: PropertyCard(
-                  imageUrl: p.imageUrl,
-                  title: p.title,
-                  location: p.location,
-                  price: p.price,
-                  status: p.status,
-                  beds: p.beds,
-                  baths: p.baths,
-                  sqft: p.sqft,
-                ),
-              ),
-            )
+          onTap: () => context.goNamed(RouteName.propertyDetail, pathParameters: {'id': p.id}),
+          child: Hero(
+            tag: 'property_image_${p.id}',
+            child: PropertyCard(
+              imageUrl: p.imageUrl,
+              title: p.title,
+              location: p.location,
+              price: p.price,
+              status: p.status,
+              beds: p.beds,
+              baths: p.baths,
+              sqft: p.sqft,
+            ),
+          ),
+        )
             .animate()
             .fadeIn(
-              delay: Duration(milliseconds: i * 60),
-              duration: 500.ms,
-            )
+          delay: Duration(milliseconds: i * 60),
+          duration: 500.ms,
+        )
             .slideY(begin: 0.15, end: 0, curve: Curves.easeOutCubic);
       },
     );
@@ -471,7 +470,7 @@ class _FilterPanel extends StatelessWidget {
             options: const [0, 1, 2, 3],
             labels: [context.localization.search_filter_any, '1+', '2+', '3+'],
             selected: minBeds,
-            onSelect: (v) => onBedsChanged(v as int),
+            onSelect: (v) => onBedsChanged(v),
           ),
         ),
 

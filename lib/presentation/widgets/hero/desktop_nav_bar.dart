@@ -49,16 +49,20 @@ class _DesktopNavBarState extends State<DesktopNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    // Transparent overlay only on home — on all other routes use solid kSecondary
+    final isHome = GoRouterState.of(context).uri.path == RoutePath.initial;
+    final bool showTransparent = isHome && !_isScrolled;
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 350),
       curve: Curves.easeInOut,
       decoration: BoxDecoration(
-        color: _isScrolled
-            ? kSecondary.withValues(alpha: 0.97)
-            : kBlack.withValues(alpha: 0.18),
-        boxShadow: _isScrolled
-            ? [BoxShadow(color: kBlack.withValues(alpha: 0.25), blurRadius: 24, offset: const Offset(0, 4))]
-            : [],
+        color: showTransparent
+            ? kBlack.withValues(alpha: 0.18)
+            : kSecondary,
+        boxShadow: showTransparent
+            ? []
+            : [BoxShadow(color: kBlack.withValues(alpha: 0.25), blurRadius: 24, offset: const Offset(0, 4))],
       ),
       child: _NavBarContent(isScrolled: _isScrolled),
     );
@@ -358,13 +362,6 @@ class _DropdownNavItemState extends State<_DropdownNavItem>
     _closeTimer?.cancel();
     _ctrl.forward();
     if (!_overlayCtrl.isShowing) _overlayCtrl.show();
-  }
-
-  void _closeNow() {
-    _closeTimer?.cancel();
-    _ctrl.stop();
-    _ctrl.value = 0;
-    if (mounted && _overlayCtrl.isShowing) _overlayCtrl.hide();
   }
 
   void _scheduleClose() {
@@ -748,7 +745,6 @@ class _LanguageSwitcherState extends ConsumerState<_LanguageSwitcher> {
                           .entries
                           .map((e) {
                         final lang = e.value;
-                        final display = '${lang['flag']} ${lang['code']}';
                         final currentCode = ref
                             .watch(localeProvider)
                             .languageCode

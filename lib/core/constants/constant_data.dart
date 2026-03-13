@@ -12,8 +12,137 @@ final List<String> heroBgImages = [
 
 /// Generates a list of 500 mock properties for the Homez app.
 final List<Property> mockProperties = List.generate(500, (index) {
-  final cities = ["New York", "Los Angeles", "Chicago", "Miami", "Austin"];
-  final neighborhoods = ["Manhattan", "Beverly Hills", "Lincoln Park", "South Beach", "Downtown"];
+  final cities = [
+    "Yangon",
+    "Mandalay",
+    "Naypyidaw",
+    "Bago",
+    "Taunggyi",
+    "Mawlamyine",
+    "Pathein",
+    "Pyay",
+    "Magway",
+    "Monywa",
+    "Sagaing",
+    "Meiktila",
+    "Myitkyina",
+    "Lashio",
+    "Hpa-An",
+    "Dawei",
+    "Myeik",
+    "Sittwe",
+    "Thandwe (Ngapali)",
+    "Loikaw",
+    "Kalaw",
+    "Pyin Oo Lwin",
+    "Thanlyin",
+    "Hinthada",
+    "Pakokku",
+    "Kyaukpyu",
+  ];
+
+  final neighborhoods = [
+    // Yangon
+    "Downtown Yangon",
+    "Sanchaung",
+    "Bahan",
+    "Yankin",
+    "Hlaing",
+    "Kamaryut",
+    "Mayangone",
+    "Insein",
+    "Ahlone",
+    "Kyimyindaing",
+    "Thingangyun",
+    "South Okkalapa",
+    "North Okkalapa",
+    "Tamwe",
+    "Thaketa",
+    "Dagon Myothit",
+    "Dagon Seikkan",
+    "Hlaing Tharyar",
+    "Shwe Pyi Thar",
+    "Mingaladon",
+    "Dawbon",
+    "Lanmadaw",
+    "Latha",
+    "Pabedan",
+    "Botataung",
+    "Pazundaung",
+    "Thanlyin",
+    "Dala",
+
+    // Mandalay
+    "Chanayethazan",
+    "Chanmyathazi",
+    "Aungmyethazan",
+    "Maha Aungmye",
+    "Amarapura",
+    "Pyigyitagon",
+    "Patheingyi",
+
+    // Naypyidaw
+    "Zabuthiri",
+    "Ottara Thiri",
+    "Dekkhina Thiri",
+    "Pobbathiri",
+    "Tatkon",
+    "Pyinmana",
+
+    // Taunggyi / Shan
+    "Taunggyi Downtown",
+    "Aye Tharyar",
+    "Kalaw",
+    "Nyaung Shwe (Inle)",
+    "Hopong",
+    "Lashio Downtown",
+
+    // Mawlamyine / Mon
+    "Mawlamyine Downtown",
+    "Chaungzon",
+    "Mudon",
+    "Thanbyuzayat",
+
+    // Bago
+    "Bago Downtown",
+    "Pyay Downtown",
+    "Nyaunglebin",
+
+    // Pathein / Ayeyarwady
+    "Pathein Downtown",
+    "Hinthada",
+    "Maubin",
+    "Bogale",
+
+    // Magway / Central
+    "Magway Downtown",
+    "Pakokku",
+    "Minbu",
+    "Yenangyaung",
+
+    // Monywa / Sagaing
+    "Monywa Downtown",
+    "Sagaing City",
+    "Shwebo",
+
+    // Kayin / Kayah
+    "Hpa-An Downtown",
+    "Loikaw Downtown",
+
+    // Tanintharyi
+    "Dawei Downtown",
+    "Myeik Downtown",
+    "Kawthaung",
+
+    // Rakhine
+    "Sittwe Downtown",
+    "Thandwe (Ngapali Beach)",
+    "Kyaukpyu",
+
+    // Kachin
+    "Myitkyina Downtown",
+    "Bhamo",
+  ];
 
   // Assign PropertyType enum based on rotation
   final typeEnum = PropertyType.values[index % PropertyType.values.length];
@@ -76,6 +205,21 @@ String _getImageUrl(int index) {
     'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
     'https://images.unsplash.com/photo-1600570997533-f14d7a120083?auto=format&fit=crop&w=1200&q=80',
     'https://images.unsplash.com/photo-1600607687940-4e5a99427ae5?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1572120360610-d971b9b78825?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1600585154154-712bd0b15c6b?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=1200&q=80',
   ];
+
   return images[index % images.length];
 }

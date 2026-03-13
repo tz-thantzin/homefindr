@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +10,7 @@ import '../../../../core/extensions/context_ex.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../domain/models/property.dart';
 import '../../view_models/property_view_model.dart';
+import '../../widgets/common/web_image.dart';
 import '../../widgets/footer/footer_section.dart';
 import '../../widgets/hero/desktop_nav_bar.dart';
 import '../../widgets/hero/mobile_drawer.dart';
@@ -127,143 +127,145 @@ class _PropertyListingScreenState extends ConsumerState<PropertyListingScreen> {
       body: !_ready
           ? _buildShimmer(context)
           : propertiesAsync.when(
-              loading: () => _buildShimmer(context),
-              error: (e, _) => Center(child: Text(e.toString())),
-              data: (properties) {
-                final filtered = _filterAndSort(properties);
-                final cols = _getGridCols(context);
-                final hPad = _getHPad(context);
+        loading: () => _buildShimmer(context),
+        error: (e, _) => Center(child: Text(e.toString())),
+        data: (properties) {
+          final filtered = _filterAndSort(properties);
+          final cols = _getGridCols(context);
+          final hPad = _getHPad(context);
 
-                return CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: ListingHero(
-                        imageUrl: widget.heroImage,
-                        title: widget.heroTitle,
-                        subtitle: widget.heroSubtitle,
-                        status: widget.status,
-                        accentColor: widget.accentColor,
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: ColoredBox(
-                        color: kGrey100,
-                        child: Center(
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(hPad, s40, hPad, 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  FilterBar(
-                                    activeType: _activeType,
-                                    minBeds: _minBeds,
-                                    sortBy: _sortBy,
-                                    accentColor: widget.accentColor,
-                                    onTypeChanged: (v) => setState(() => _activeType = v),
-                                    onBedsChanged: (v) => setState(() => _minBeds = v),
-                                    onSortChanged: (v) => setState(() => _sortBy = v),
-                                  ),
-                                  const SizedBox(height: s24),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '${filtered.length} properties',
-                                        style: const TextStyle(
-                                          fontSize: tx16,
-                                          fontWeight: FontWeight.w700,
-                                          color: kSecondary,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () => context.goNamed(
-                                          RouteName.search,
-                                          queryParameters: {'status': widget.status},
-                                        ),
-                                        child: Text(
-                                          context.localization.search_advanced,
-                                          style: TextStyle(
-                                            fontSize: tx14,
-                                            color: widget.accentColor,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: s24),
-                                ],
-                              ),
+          return CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: ListingHero(
+                  imageUrl: widget.heroImage,
+                  title: widget.heroTitle,
+                  subtitle: widget.heroSubtitle,
+                  status: widget.status,
+                  accentColor: widget.accentColor,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: ColoredBox(
+                  color: kGrey100,
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(hPad, s40, hPad, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FilterBar(
+                              activeType: _activeType,
+                              minBeds: _minBeds,
+                              sortBy: _sortBy,
+                              accentColor: widget.accentColor,
+                              onTypeChanged: (v) => setState(() => _activeType = v),
+                              onBedsChanged: (v) => setState(() => _minBeds = v),
+                              onSortChanged: (v) => setState(() => _sortBy = v),
                             ),
-                          ),
+                            const SizedBox(height: s24),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '${filtered.length} properties',
+                                  style: const TextStyle(
+                                    fontSize: tx16,
+                                    fontWeight: FontWeight.w700,
+                                    color: kSecondary,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () =>
+                                      context.goNamed(
+                                        RouteName.search,
+                                        queryParameters: {'status': widget.status},
+                                      ),
+                                  child: Text(
+                                    context.localization.search_advanced,
+                                    style: TextStyle(
+                                      fontSize: tx14,
+                                      color: widget.accentColor,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: s24),
+                          ],
                         ),
                       ),
                     ),
-                    if (filtered.isEmpty)
-                      SliverToBoxAdapter(
-                        child: ColoredBox(
-                          color: kGrey100,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: s80),
-                              child: Column(
-                                children: [
-                                  const Icon(Icons.home_outlined, size: 64, color: kGrey300),
-                                  const SizedBox(height: s16),
-                                  Text(
-                                    context.localization.search_no_results_filters,
-                                    style: const TextStyle(fontSize: tx16, color: kGrey500),
-                                  ),
-                                ],
-                              ),
+                  ),
+                ),
+              ),
+              if (filtered.isEmpty)
+                SliverToBoxAdapter(
+                  child: ColoredBox(
+                    color: kGrey100,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: s80),
+                        child: Column(
+                          children: [
+                            const Icon(Icons.home_outlined, size: 64, color: kGrey300),
+                            const SizedBox(height: s16),
+                            Text(
+                              context.localization.search_no_results_filters,
+                              style: const TextStyle(fontSize: tx16, color: kGrey500),
                             ),
-                          ),
-                        ),
-                      )
-                    else
-                      DecoratedSliver(
-                        decoration: const BoxDecoration(color: kGrey100),
-                        sliver: SliverPadding(
-                          padding: EdgeInsets.fromLTRB(hPad, 0, hPad, s40),
-                          sliver: SliverGrid(
-                            delegate: SliverChildBuilderDelegate(
-                              (context, i) {
-                                final p = filtered[i];
-                                return GestureDetector(
-                                  onTap: () => context.goNamed(
-                                    RouteName.propertyDetail,
-                                    pathParameters: {'id': p.id},
-                                  ),
-                                  child: PropertyCard(
-                                    imageUrl: p.imageUrl,
-                                    title: p.title,
-                                    location: p.location,
-                                    price: p.price,
-                                    status: p.status,
-                                    beds: p.beds,
-                                    baths: p.baths,
-                                    sqft: p.sqft,
-                                  ),
-                                );
-                              },
-                              childCount: filtered.length,
-                            ),
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: cols,
-                              crossAxisSpacing: s24,
-                              mainAxisSpacing: s24,
-                              mainAxisExtent: 450,
-                            ),
-                          ),
+                          ],
                         ),
                       ),
-                    const SliverToBoxAdapter(child: FooterSection()),
-                  ],
-                );
-              },
-            ),
+                    ),
+                  ),
+                )
+              else
+                DecoratedSliver(
+                  decoration: const BoxDecoration(color: kGrey100),
+                  sliver: SliverPadding(
+                    padding: EdgeInsets.fromLTRB(hPad, 0, hPad, s40),
+                    sliver: SliverGrid(
+                      delegate: SliverChildBuilderDelegate(
+                            (context, i) {
+                          final p = filtered[i];
+                          return GestureDetector(
+                            onTap: () =>
+                                context.goNamed(
+                                  RouteName.propertyDetail,
+                                  pathParameters: {'id': p.id},
+                                ),
+                            child: PropertyCard(
+                              imageUrl: p.imageUrl,
+                              title: p.title,
+                              location: p.location,
+                              price: p.price,
+                              status: p.status,
+                              beds: p.beds,
+                              baths: p.baths,
+                              sqft: p.sqft,
+                            ),
+                          );
+                        },
+                        childCount: filtered.length,
+                      ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: cols,
+                        crossAxisSpacing: s24,
+                        mainAxisSpacing: s24,
+                        mainAxisExtent: 450,
+                      ),
+                    ),
+                  ),
+                ),
+              const SliverToBoxAdapter(child: FooterSection()),
+            ],
+          );
+        },
+      ),
     );
   }
 }
@@ -292,23 +294,7 @@ class ListingHero extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.cover,
-            fadeInDuration: const Duration(milliseconds: 300),
-            placeholder: (_, _) => Container(color: kGrey200),
-            errorWidget: (_, _, _) => Container(
-              color: kGrey100,
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.image_not_supported_outlined, size: 40, color: kGrey400),
-                  SizedBox(height: 6),
-                  Text('Image unavailable', style: TextStyle(fontSize: 11, color: kGrey400)),
-                ],
-              ),
-            ),
-          ),
+          WebImage(url: imageUrl, fit: BoxFit.cover),
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -604,8 +590,8 @@ class _FilterChipWidgetState extends State<FilterChipWidget> {
     final activeColor = widget.isActive
         ? widget.color
         : (_hovered
-            ? widget.color.withValues(alpha: 0.08)
-            : kGrey100);
+        ? widget.color.withValues(alpha: 0.08)
+        : kGrey100);
     final textColor = widget.isActive
         ? kWhite
         : (_hovered ? widget.color : kGrey700);
@@ -742,7 +728,7 @@ class PropertyCardSkeleton extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(
                     3,
-                    (idx) => ShimmerBox(height: 14, width: 70, radius: 4, anim: anim),
+                        (idx) => ShimmerBox(height: 14, width: 70, radius: 4, anim: anim),
                   ),
                 ),
                 const SizedBox(height: s16),
