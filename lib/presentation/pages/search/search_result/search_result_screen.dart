@@ -69,10 +69,8 @@ class _SearchResultsScreenState extends ConsumerState<SearchResultsScreen> {
     switch (_sortBy) {
       case 'price_low':
         result.sort((a, b) => a.price.compareTo(b.price));
-        break;
       case 'price_high':
         result.sort((a, b) => b.price.compareTo(a.price));
-        break;
       case 'newest':
       default:
         result.sort((a, b) => b.createdAt.compareTo(a.createdAt));
@@ -252,7 +250,7 @@ class _SearchHeader extends StatelessWidget {
           children: [
             Text(
               '$count ${count == 1 ? 'property' : 'properties'} found',
-              style: TextStyle(fontSize: tx14, color: kGrey700, fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: tx14, color: kGrey700, fontWeight: FontWeight.w500),
             ),
             const Spacer(),
             if (!compact)
@@ -277,7 +275,7 @@ class _SearchHeader extends StatelessWidget {
                         decoration: InputDecoration(
                           hintText: context.localization.search_hint_refine,
                           border: InputBorder.none,
-                          hintStyle: TextStyle(fontSize: tx14, color: kGrey500),
+                          hintStyle: const TextStyle(fontSize: tx14, color: kGrey500),
                         ),
                         style: const TextStyle(fontSize: tx14),
                       ),
@@ -380,13 +378,13 @@ class _FilterPanel extends StatelessWidget {
           children: [
             Text(
               context.localization.search_filter_title,
-              style: TextStyle(fontSize: tx20, fontWeight: FontWeight.w800, color: kSecondary),
+              style: const TextStyle(fontSize: tx20, fontWeight: FontWeight.w800, color: kSecondary),
             ),
             GestureDetector(
               onTap: onReset,
               child: Text(
                 context.localization.search_filter_reset_all,
-                style: TextStyle(fontSize: tx12, color: kPrimary, fontWeight: FontWeight.w600),
+                style: const TextStyle(fontSize: tx12, color: kPrimary, fontWeight: FontWeight.w600),
               ),
             ),
           ],
@@ -743,7 +741,7 @@ class _MobileFilterSheet extends StatelessWidget {
                       children: [
                         Text(
                           context.localization.search_filter_title,
-                          style: TextStyle(fontSize: tx18, fontWeight: FontWeight.w800, color: kSecondary),
+                          style: const TextStyle(fontSize: tx18, fontWeight: FontWeight.w800, color: kSecondary),
                         ),
                         Row(
                           children: [
@@ -751,7 +749,7 @@ class _MobileFilterSheet extends StatelessWidget {
                               onTap: onReset,
                               child: Text(
                                 context.localization.search_filter_reset,
-                                style: TextStyle(color: kPrimary, fontSize: tx14, fontWeight: FontWeight.w600),
+                                style: const TextStyle(color: kPrimary, fontSize: tx14, fontWeight: FontWeight.w600),
                               ),
                             ),
                             const SizedBox(width: s16),
@@ -807,7 +805,7 @@ class _EmptyState extends StatelessWidget {
           Container(
             width: 100,
             height: 100,
-            decoration: BoxDecoration(color: kGrey100, shape: BoxShape.circle),
+            decoration: const BoxDecoration(color: kGrey100, shape: BoxShape.circle),
             child: const Icon(Icons.search_off, size: 48, color: kGrey400),
           ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
           const SizedBox(height: s24),
@@ -818,7 +816,7 @@ class _EmptyState extends StatelessWidget {
           const SizedBox(height: s8),
           Text(
             context.localization.search_no_results_subtitle,
-            style: TextStyle(fontSize: tx14, color: kGrey500),
+            style: const TextStyle(fontSize: tx14, color: kGrey500),
           ).animate().fadeIn(delay: 300.ms),
           const SizedBox(height: s60),
         ],

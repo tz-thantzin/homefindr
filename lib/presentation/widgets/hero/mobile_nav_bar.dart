@@ -23,8 +23,8 @@ class _MobileNavBarState extends State<MobileNavBar> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _scrollController?.removeListener(_onScroll);
-    _scrollController = PrimaryScrollController.of(context);
-    _scrollController!.addListener(_onScroll);
+    _scrollController = PrimaryScrollController.maybeOf(context);
+    _scrollController?.addListener(_onScroll);
   }
 
   @override

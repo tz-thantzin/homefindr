@@ -22,18 +22,16 @@ class ContactScreen extends StatelessWidget {
       drawer: context.isDesktop ? null : const MobileDrawer(),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
-        child: ScreenTypeLayout.builder(desktop: (_) => _SolidNavBar(), mobile: (_) => _SolidMobileNavBar()),
+        child: ScreenTypeLayout.builder(desktop: (_) => const _SolidNavBar(), mobile: (_) => const _SolidMobileNavBar()),
       ),
       body: SingleChildScrollView(
         primary: true,
         child: Column(
           children: [
-            // Page header
-            _ContactPageHeader(),
+            const _ContactPageHeader(),
 
-            // Main content
             Container(
-              color: kGrey100,
+              color: kCanvas,
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
@@ -48,12 +46,8 @@ class ContactScreen extends StatelessWidget {
               ),
             ),
 
-            // Info cards strip
-            _InfoCardsStrip(),
-
-            // FAQ Section
-            _FaqSection(),
-
+            const _InfoCardsStrip(),
+            const _FaqSection(),
             const FooterSection(),
           ],
         ),
@@ -64,19 +58,19 @@ class ContactScreen extends StatelessWidget {
   Widget _buildDesktopContent(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: const [
         Expanded(flex: 3, child: _ContactForm()),
-        const SizedBox(width: s40),
+        SizedBox(width: s40),
         Expanded(flex: 2, child: _ContactSidebar()),
       ],
     );
   }
 
   Widget _buildMobileContent(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         _ContactForm(),
-        const SizedBox(height: s32),
+        SizedBox(height: s32),
         _ContactSidebar(),
       ],
     );
@@ -84,9 +78,11 @@ class ContactScreen extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────
-// Page Header (dark banner, no hero image)
+// Page Header
 // ─────────────────────────────────────────────
 class _ContactPageHeader extends StatelessWidget {
+  const _ContactPageHeader();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,7 +92,6 @@ class _ContactPageHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Breadcrumb
           Row(
             children: [
               Text(
@@ -106,7 +101,7 @@ class _ContactPageHeader extends StatelessWidget {
               Icon(Icons.chevron_right, size: s14, color: kWhite.withValues(alpha: 0.4)),
               Text(
                 context.localization.contact_breadcrumb_contact,
-                style: TextStyle(color: kPrimary, fontSize: tx12, fontWeight: FontWeight.w600),
+                style: const TextStyle(color: kPrimary, fontSize: tx12, fontWeight: FontWeight.w600),
               ),
             ],
           ).animate().fadeIn(duration: 400.ms),
@@ -134,6 +129,8 @@ class _ContactPageHeader extends StatelessWidget {
 // Contact Form
 // ─────────────────────────────────────────────
 class _ContactForm extends StatefulWidget {
+  const _ContactForm();
+
   @override
   State<_ContactForm> createState() => _ContactFormState();
 }
@@ -145,7 +142,7 @@ class _ContactFormState extends State<_ContactForm> {
   final _phoneCtrl = TextEditingController();
   final _subjectCtrl = TextEditingController();
   final _msgCtrl = TextEditingController();
-  String _inquiryType = 'Buy'; // default, not localized for logic
+  String _inquiryType = 'Buy';
   bool _isSubmitting = false;
   bool _submitted = false;
 
@@ -181,11 +178,12 @@ class _ContactFormState extends State<_ContactForm> {
     return Container(
       padding: const EdgeInsets.all(s32),
       decoration: BoxDecoration(
-        color: kWhite,
+        color: kSurface,
         borderRadius: BorderRadius.circular(s16),
-        boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.06), blurRadius: 24, offset: const Offset(0, 8))],
+        border: Border.all(color: kBorderDark),
+        boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.3), blurRadius: 24, offset: const Offset(0, 8))],
       ),
-      child: _submitted ? _SuccessState() : _buildForm(context),
+      child: _submitted ? const _SuccessState() : _buildForm(context),
     ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.1);
   }
 
@@ -197,52 +195,25 @@ class _ContactFormState extends State<_ContactForm> {
         children: [
           Text(
             context.localization.contact_form_title,
-            style: const TextStyle(fontSize: tx24, fontWeight: FontWeight.w800, color: kSecondary),
+            style: const TextStyle(fontSize: tx24, fontWeight: FontWeight.w800, color: kCream),
           ),
           const SizedBox(height: s6),
           Text(
             context.localization.contact_form_subtitle,
-            style: const TextStyle(fontSize: tx14, color: kGrey500),
+            style: const TextStyle(fontSize: tx14, color: kMuted),
           ),
 
           const SizedBox(height: s28),
 
-          // Inquiry type chips
-          Text(
-            context.localization.contact_form_interested_in,
-            style: const TextStyle(fontSize: tx12, fontWeight: FontWeight.w700, color: kGrey700, letterSpacing: 0.5),
-          ),
-          const SizedBox(height: s10),
-          Wrap(
-            spacing: s8,
-            children: _inquiryTypes(context).map((type) {
-              final isActive = _inquiryType == type;
-              return GestureDetector(
-                onTap: () => setState(() => _inquiryType = type),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: s16, vertical: s8),
-                  decoration: BoxDecoration(
-                    color: isActive ? kPrimary : kGrey100,
-                    borderRadius: BorderRadius.circular(s20),
-                    border: Border.all(color: isActive ? kPrimary : kGrey300),
-                  ),
-                  child: Text(
-                    type,
-                    style: TextStyle(
-                      fontSize: tx12,
-                      fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-                      color: isActive ? kWhite : kGrey700,
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
+          _InquiryTypeSelector(
+            label: context.localization.contact_form_interested_in,
+            types: _inquiryTypes(context),
+            selected: _inquiryType,
+            onChanged: (t) => setState(() => _inquiryType = t),
           ),
 
           const SizedBox(height: s24),
 
-          // Name + Email row
           ScreenTypeLayout.builder(
             desktop: (_) => Row(
               children: [
@@ -290,7 +261,6 @@ class _ContactFormState extends State<_ContactForm> {
 
           const SizedBox(height: s16),
 
-          // Phone + Subject row
           ScreenTypeLayout.builder(
             desktop: (_) => Row(
               children: [
@@ -347,35 +317,10 @@ class _ContactFormState extends State<_ContactForm> {
 
           const SizedBox(height: s28),
 
-          SizedBox(
-            width: double.infinity,
-            height: s55,
-            child: ElevatedButton(
-              onPressed: _isSubmitting ? null : _submit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: kPrimary,
-                foregroundColor: kWhite,
-                elevation: 0,
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-              ),
-              child: _isSubmitting
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(color: kWhite, strokeWidth: 2),
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          context.localization.contact_send,
-                          style: const TextStyle(fontSize: tx16, fontWeight: FontWeight.w700, letterSpacing: 0.5),
-                        ),
-                        const SizedBox(width: s10),
-                        const Icon(Icons.send, size: s16),
-                      ],
-                    ),
-            ),
+          _SubmitButton(
+            label: context.localization.contact_send,
+            isSubmitting: _isSubmitting,
+            onPressed: _submit,
           ),
         ],
       ),
@@ -391,7 +336,108 @@ class _ContactFormState extends State<_ContactForm> {
   }
 }
 
+// ─────────────────────────────────────────────
+// Inquiry type chip row
+// ─────────────────────────────────────────────
+class _InquiryTypeSelector extends StatelessWidget {
+  final String label;
+  final List<String> types;
+  final String selected;
+  final ValueChanged<String> onChanged;
+
+  const _InquiryTypeSelector({
+    required this.label,
+    required this.types,
+    required this.selected,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: tx12, fontWeight: FontWeight.w700, color: kMuted, letterSpacing: 0.5),
+        ),
+        const SizedBox(height: s10),
+        Wrap(
+          spacing: s8,
+          children: types.map((type) {
+            final isActive = selected == type;
+            return GestureDetector(
+              onTap: () => onChanged(type),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(horizontal: s16, vertical: s8),
+                decoration: BoxDecoration(
+                  color: isActive ? kPrimary : kCanvas,
+                  borderRadius: BorderRadius.circular(s20),
+                  border: Border.all(color: isActive ? kPrimary : kBorderDark),
+                ),
+                child: Text(
+                  type,
+                  style: TextStyle(
+                    fontSize: tx12,
+                    fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+                    color: isActive ? kSecondary : kMuted,
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
+
+// ─────────────────────────────────────────────
+// Submit button
+// ─────────────────────────────────────────────
+class _SubmitButton extends StatelessWidget {
+  final String label;
+  final bool isSubmitting;
+  final VoidCallback onPressed;
+
+  const _SubmitButton({required this.label, required this.isSubmitting, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: s55,
+      child: ElevatedButton(
+        onPressed: isSubmitting ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: kPrimary,
+          foregroundColor: kSecondary,
+          elevation: 0,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
+        child: isSubmitting
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(color: kSecondary, strokeWidth: 2),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(label, style: const TextStyle(fontSize: tx16, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
+                  const SizedBox(width: s10),
+                  const Icon(Icons.send, size: s16),
+                ],
+              ),
+      ),
+    );
+  }
+}
+
 class _SuccessState extends StatelessWidget {
+  const _SuccessState();
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -408,12 +454,12 @@ class _SuccessState extends StatelessWidget {
             const SizedBox(height: s24),
             Text(
               context.localization.contact_success_title,
-              style: const TextStyle(fontSize: tx24, fontWeight: FontWeight.w800, color: kSecondary),
+              style: const TextStyle(fontSize: tx24, fontWeight: FontWeight.w800, color: kCream),
             ).animate().fadeIn(delay: 200.ms),
             const SizedBox(height: s8),
             Text(
               context.localization.contact_success_subtitle,
-              style: const TextStyle(fontSize: tx16, color: kGrey500),
+              style: const TextStyle(fontSize: tx16, color: kMuted),
             ).animate().fadeIn(delay: 300.ms),
           ],
         ),
@@ -451,19 +497,16 @@ class _FormFieldState extends State<_FormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.label,
-          style: const TextStyle(fontSize: tx12, fontWeight: FontWeight.w600, color: kSecondary),
-        ),
+        Text(widget.label, style: const TextStyle(fontSize: tx12, fontWeight: FontWeight.w600, color: kCream)),
         const SizedBox(height: s8),
         Focus(
           onFocusChange: (f) => setState(() => _focused = f),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              color: kGrey100,
+              color: kCanvas,
               borderRadius: BorderRadius.circular(s8),
-              border: Border.all(color: _focused ? kPrimary : kGrey200, width: _focused ? 1.5 : 1),
+              border: Border.all(color: _focused ? kPrimary : kBorderDark, width: _focused ? 1.5 : 1),
             ),
             child: TextFormField(
               controller: widget.controller,
@@ -471,9 +514,9 @@ class _FormFieldState extends State<_FormField> {
               validator: widget.validator,
               decoration: InputDecoration(
                 hintText: widget.hint,
-                hintStyle: const TextStyle(color: kGrey400, fontSize: tx14),
+                hintStyle: const TextStyle(color: kMuted, fontSize: tx14),
                 prefixIcon: widget.maxLines == 1
-                    ? Icon(widget.icon, size: s16, color: _focused ? kPrimary : kGrey500)
+                    ? Icon(widget.icon, size: s16, color: _focused ? kPrimary : kMuted)
                     : null,
                 contentPadding: EdgeInsets.symmetric(horizontal: widget.maxLines > 1 ? s16 : 0, vertical: s14),
                 border: InputBorder.none,
@@ -483,7 +526,7 @@ class _FormFieldState extends State<_FormField> {
                 focusedErrorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
               ),
-              style: const TextStyle(fontSize: tx14, color: kSecondary),
+              style: const TextStyle(fontSize: tx14, color: kCream),
             ),
           ),
         ),
@@ -496,6 +539,8 @@ class _FormFieldState extends State<_FormField> {
 // Contact Sidebar
 // ─────────────────────────────────────────────
 class _ContactSidebar extends StatelessWidget {
+  const _ContactSidebar();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -506,14 +551,14 @@ class _ContactSidebar extends StatelessWidget {
           height: 220,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: kGrey200,
+            color: kSurface,
             borderRadius: BorderRadius.circular(s16),
-            boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.06), blurRadius: 16)],
+            boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.3), blurRadius: 16)],
           ),
           child: Stack(
             alignment: Alignment.center,
             children: [
-              CustomPaint(painter: _SimpleMapPainter(), child: const SizedBox.expand()),
+              CustomPaint(painter: const _SimpleMapPainter(), child: const SizedBox.expand()),
               Container(
                 padding: const EdgeInsets.all(s12),
                 decoration: BoxDecoration(
@@ -533,16 +578,17 @@ class _ContactSidebar extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(s24),
           decoration: BoxDecoration(
-            color: kWhite,
+            color: kSurface,
             borderRadius: BorderRadius.circular(s16),
-            boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.06), blurRadius: 16)],
+            border: Border.all(color: kBorderDark),
+            boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.3), blurRadius: 16)],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 context.localization.contact_info_title,
-                style: const TextStyle(fontSize: tx18, fontWeight: FontWeight.w800, color: kSecondary),
+                style: const TextStyle(fontSize: tx18, fontWeight: FontWeight.w800, color: kCream),
               ),
               const SizedBox(height: s20),
               _InfoRow(
@@ -574,7 +620,7 @@ class _ContactSidebar extends StatelessWidget {
         // Agent card
         Container(
           padding: const EdgeInsets.all(s24),
-          decoration: BoxDecoration(color: kSecondary, borderRadius: BorderRadius.circular(s16)),
+          decoration: const BoxDecoration(color: kSecondary, borderRadius: BorderRadius.all(Radius.circular(s16))),
           child: Row(
             children: [
               CircleAvatar(
@@ -589,19 +635,19 @@ class _ContactSidebar extends StatelessWidget {
                   children: [
                     Text(
                       context.localization.contact_agent_title,
-                      style: const TextStyle(color: kWhite, fontSize: tx16, fontWeight: FontWeight.w700),
+                      style: const TextStyle(color: kCream, fontSize: tx16, fontWeight: FontWeight.w700),
                     ),
                     Text(
                       context.localization.contact_agent_available,
-                      style: TextStyle(color: kWhite.withValues(alpha: 0.55), fontSize: tx12),
+                      style: TextStyle(color: kCream.withValues(alpha: 0.55), fontSize: tx12),
                     ),
                   ],
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(s10),
-                decoration: BoxDecoration(color: kPrimary, shape: BoxShape.circle),
-                child: const Icon(Icons.call, color: kWhite, size: s18),
+                decoration: const BoxDecoration(color: kPrimary, shape: BoxShape.circle),
+                child: const Icon(Icons.call, color: kSecondary, size: s18),
               ),
             ],
           ),
@@ -638,13 +684,10 @@ class _InfoRow extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: tx10, fontWeight: FontWeight.w700, color: kGrey500, letterSpacing: 0.5),
+                  style: const TextStyle(fontSize: tx10, fontWeight: FontWeight.w700, color: kMuted, letterSpacing: 0.5),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  value,
-                  style: const TextStyle(fontSize: tx14, fontWeight: FontWeight.w600, color: kSecondary),
-                ),
+                Text(value, style: const TextStyle(fontSize: tx14, fontWeight: FontWeight.w600, color: kCream)),
               ],
             ),
           ),
@@ -658,6 +701,8 @@ class _InfoRow extends StatelessWidget {
 // Info Cards Strip
 // ─────────────────────────────────────────────
 class _InfoCardsStrip extends StatelessWidget {
+  const _InfoCardsStrip();
+
   @override
   Widget build(BuildContext context) {
     final cards = [
@@ -684,7 +729,7 @@ class _InfoCardsStrip extends StatelessWidget {
     ];
 
     return Container(
-      color: kWhite,
+      color: kSecondary,
       padding: const EdgeInsets.symmetric(vertical: s60),
       child: Center(
         child: ConstrainedBox(
@@ -760,12 +805,12 @@ class _InfoCardState extends State<_InfoCard> {
             duration: const Duration(milliseconds: 250),
             padding: const EdgeInsets.all(s28),
             decoration: BoxDecoration(
-              color: _hovered ? kSecondary : kWhite,
+              color: _hovered ? kSurface : kCanvas,
               borderRadius: BorderRadius.circular(s12),
-              border: Border.all(color: _hovered ? kSecondary : kGrey200),
+              border: Border.all(color: _hovered ? kPrimary.withValues(alpha: 0.5) : kBorderDark),
               boxShadow: _hovered
-                  ? [BoxShadow(color: kSecondary.withValues(alpha: 0.15), blurRadius: 24, offset: const Offset(0, 8))]
-                  : [],
+                  ? [BoxShadow(color: kPrimary.withValues(alpha: 0.1), blurRadius: 24, offset: const Offset(0, 8))]
+                  : const [],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -774,7 +819,7 @@ class _InfoCardState extends State<_InfoCard> {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: _hovered ? kPrimary.withValues(alpha: 0.2) : kPrimary.withValues(alpha: 0.08),
+                    color: kPrimary.withValues(alpha: _hovered ? 0.2 : 0.08),
                     borderRadius: BorderRadius.circular(s12),
                   ),
                   child: Icon(widget.icon, color: kPrimary, size: s20),
@@ -782,14 +827,14 @@ class _InfoCardState extends State<_InfoCard> {
                 const SizedBox(height: s16),
                 Text(
                   widget.title,
-                  style: TextStyle(fontSize: tx16, fontWeight: FontWeight.w700, color: _hovered ? kWhite : kSecondary),
+                  style: const TextStyle(fontSize: tx16, fontWeight: FontWeight.w700, color: kCream),
                 ),
                 const SizedBox(height: s6),
                 Text(
                   widget.desc,
                   style: TextStyle(
                     fontSize: tx12,
-                    color: _hovered ? kWhite.withValues(alpha: 0.6) : kGrey500,
+                    color: _hovered ? kMuted : kMuted.withValues(alpha: 0.7),
                     height: 1.5,
                   ),
                 ),
@@ -798,10 +843,7 @@ class _InfoCardState extends State<_InfoCard> {
           ),
         )
         .animate()
-        .fadeIn(
-          delay: Duration(milliseconds: widget.index * 100),
-          duration: 500.ms,
-        )
+        .fadeIn(delay: Duration(milliseconds: widget.index * 100), duration: 500.ms)
         .slideY(begin: 0.15);
   }
 }
@@ -810,6 +852,8 @@ class _InfoCardState extends State<_InfoCard> {
 // FAQ Section
 // ─────────────────────────────────────────────
 class _FaqSection extends StatelessWidget {
+  const _FaqSection();
+
   @override
   Widget build(BuildContext context) {
     final faqs = [
@@ -821,7 +865,7 @@ class _FaqSection extends StatelessWidget {
     ];
 
     return Container(
-      color: kGrey100,
+      color: kCanvas,
       padding: const EdgeInsets.symmetric(vertical: s60),
       child: Center(
         child: ConstrainedBox(
@@ -833,12 +877,12 @@ class _FaqSection extends StatelessWidget {
               children: [
                 Text(
                   context.localization.contact_faq_title,
-                  style: const TextStyle(fontSize: tx32, fontWeight: FontWeight.w800, color: kSecondary),
+                  style: const TextStyle(fontSize: tx32, fontWeight: FontWeight.w800, color: kCream),
                 ).animate().fadeIn(duration: 400.ms),
                 const SizedBox(height: s8),
                 Text(
                   context.localization.contact_faq_subtitle,
-                  style: const TextStyle(fontSize: tx16, color: kGrey500),
+                  style: const TextStyle(fontSize: tx16, color: kMuted),
                 ).animate().fadeIn(delay: 100.ms),
                 const SizedBox(height: s32),
                 ...faqs.asMap().entries.map(
@@ -892,10 +936,10 @@ class _FaqItemState extends State<_FaqItem> with SingleTickerProviderStateMixin 
     return Container(
           margin: const EdgeInsets.only(bottom: s12),
           decoration: BoxDecoration(
-            color: kWhite,
+            color: kSurface,
             borderRadius: BorderRadius.circular(s12),
-            border: Border.all(color: _expanded ? kPrimary.withValues(alpha: 0.3) : kGrey200),
-            boxShadow: _expanded ? [BoxShadow(color: kPrimary.withValues(alpha: 0.08), blurRadius: 16)] : [],
+            border: Border.all(color: _expanded ? kPrimary.withValues(alpha: 0.3) : kBorderDark),
+            boxShadow: _expanded ? [BoxShadow(color: kPrimary.withValues(alpha: 0.08), blurRadius: 16)] : const [],
           ),
           child: Column(
             children: [
@@ -912,7 +956,7 @@ class _FaqItemState extends State<_FaqItem> with SingleTickerProviderStateMixin 
                           style: TextStyle(
                             fontSize: tx16,
                             fontWeight: _expanded ? FontWeight.w700 : FontWeight.w600,
-                            color: _expanded ? kPrimary : kSecondary,
+                            color: _expanded ? kPrimary : kCream,
                           ),
                         ),
                       ),
@@ -920,7 +964,7 @@ class _FaqItemState extends State<_FaqItem> with SingleTickerProviderStateMixin 
                       AnimatedRotation(
                         turns: _expanded ? 0.5 : 0,
                         duration: const Duration(milliseconds: 300),
-                        child: Icon(Icons.keyboard_arrow_down, color: _expanded ? kPrimary : kGrey500, size: s20),
+                        child: Icon(Icons.keyboard_arrow_down, color: _expanded ? kPrimary : kMuted, size: s20),
                       ),
                     ],
                   ),
@@ -930,28 +974,24 @@ class _FaqItemState extends State<_FaqItem> with SingleTickerProviderStateMixin 
                 sizeFactor: _heightFactor,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(s20, 0, s20, s20),
-                  child: Text(
-                    widget.answer,
-                    style: const TextStyle(fontSize: tx14, color: kGrey700, height: 1.7),
-                  ),
+                  child: Text(widget.answer, style: const TextStyle(fontSize: tx14, color: kMuted, height: 1.7)),
                 ),
               ),
             ],
           ),
         )
         .animate()
-        .fadeIn(
-          delay: Duration(milliseconds: widget.index * 80),
-          duration: 400.ms,
-        )
+        .fadeIn(delay: Duration(milliseconds: widget.index * 80), duration: 400.ms)
         .slideY(begin: 0.1);
   }
 }
 
 // ─────────────────────────────────────────────
-// Solid nav bars (no hero behind them)
+// Solid nav bars
 // ─────────────────────────────────────────────
 class _SolidNavBar extends StatelessWidget {
+  const _SolidNavBar();
+
   @override
   Widget build(BuildContext context) {
     return Container(color: kSecondary, child: const DesktopNavBar());
@@ -959,6 +999,8 @@ class _SolidNavBar extends StatelessWidget {
 }
 
 class _SolidMobileNavBar extends StatelessWidget {
+  const _SolidMobileNavBar();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -979,19 +1021,21 @@ class _SolidMobileNavBar extends StatelessWidget {
 }
 
 class _SimpleMapPainter extends CustomPainter {
+  const _SimpleMapPainter();
+
   @override
   void paint(Canvas canvas, Size size) {
-    final bg = Paint()..color = const Color(0xFFE8EEF4);
+    final bg = Paint()..color = kCanvas;
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), bg);
 
     final road = Paint()
-      ..color = kWhite
+      ..color = kSurface
       ..strokeWidth = 12
       ..strokeCap = StrokeCap.round;
     canvas.drawLine(Offset(0, size.height * 0.5), Offset(size.width, size.height * 0.5), road);
     canvas.drawLine(Offset(size.width * 0.45, 0), Offset(size.width * 0.45, size.height), road);
 
-    final block = Paint()..color = const Color(0xFFD4DDE8);
+    final block = Paint()..color = kBorderDark;
     canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(20, 30, 100, 80), const Radius.circular(4)), block);
     canvas.drawRRect(
       RRect.fromRectAndRadius(Rect.fromLTWH(size.width * 0.55, 30, 120, 60), const Radius.circular(4)),

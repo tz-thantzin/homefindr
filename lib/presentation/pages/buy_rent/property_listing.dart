@@ -70,7 +70,7 @@ class _PropertyListingScreenState extends ConsumerState<PropertyListingScreen> {
         ),
         SliverToBoxAdapter(
           child: ColoredBox(
-            color: kGrey100,
+            color: kCanvas,
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
@@ -100,10 +100,8 @@ class _PropertyListingScreenState extends ConsumerState<PropertyListingScreen> {
     switch (_sortBy) {
       case 'price_low':
         result.sort((a, b) => a.price.compareTo(b.price));
-        break;
       case 'price_high':
         result.sort((a, b) => b.price.compareTo(a.price));
-        break;
       default:
         result.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     }
@@ -147,7 +145,7 @@ class _PropertyListingScreenState extends ConsumerState<PropertyListingScreen> {
               ),
               SliverToBoxAdapter(
                 child: ColoredBox(
-                  color: kGrey100,
+                  color: kCanvas,
                   child: Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
@@ -174,7 +172,7 @@ class _PropertyListingScreenState extends ConsumerState<PropertyListingScreen> {
                                   style: const TextStyle(
                                     fontSize: tx16,
                                     fontWeight: FontWeight.w700,
-                                    color: kSecondary,
+                                    color: kCream,
                                   ),
                                 ),
                                 GestureDetector(
@@ -205,17 +203,17 @@ class _PropertyListingScreenState extends ConsumerState<PropertyListingScreen> {
               if (filtered.isEmpty)
                 SliverToBoxAdapter(
                   child: ColoredBox(
-                    color: kGrey100,
+                    color: kCanvas,
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: s80),
                         child: Column(
                           children: [
-                            const Icon(Icons.home_outlined, size: 64, color: kGrey300),
+                            const Icon(Icons.home_outlined, size: 64, color: kBorderDark),
                             const SizedBox(height: s16),
                             Text(
                               context.localization.search_no_results_filters,
-                              style: const TextStyle(fontSize: tx16, color: kGrey500),
+                              style: const TextStyle(fontSize: tx16, color: kMuted),
                             ),
                           ],
                         ),
@@ -225,7 +223,7 @@ class _PropertyListingScreenState extends ConsumerState<PropertyListingScreen> {
                 )
               else
                 DecoratedSliver(
-                  decoration: const BoxDecoration(color: kGrey100),
+                  decoration: const BoxDecoration(color: kCanvas),
                   sliver: SliverPadding(
                     padding: EdgeInsets.fromLTRB(hPad, 0, hPad, s40),
                     sliver: SliverGrid(
@@ -279,6 +277,7 @@ class ListingHero extends StatelessWidget {
   final Color accentColor;
 
   const ListingHero({
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.subtitle,
@@ -385,7 +384,8 @@ class ListingHero extends StatelessWidget {
 class HeroStat extends StatelessWidget {
   final String label;
   final String value;
-  const HeroStat({required this.label, required this.value});
+
+  const HeroStat({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -410,6 +410,7 @@ class FilterBar extends StatelessWidget {
   final ValueChanged<String> onSortChanged;
 
   const FilterBar({
+    super.key,
     required this.activeType,
     required this.minBeds,
     required this.sortBy,
@@ -424,9 +425,10 @@ class FilterBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(s20),
       decoration: BoxDecoration(
-        color: kWhite,
-        borderRadius: BorderRadius.circular(s12),
-        boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.04), blurRadius: 16, offset: const Offset(0, 4))],
+        color: kSurface,
+        borderRadius: BorderRadius.circular(s4),
+        border: Border.all(color: kBorderDark),
+        boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.3), blurRadius: 16, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,7 +438,7 @@ class FilterBar extends StatelessWidget {
             style: const TextStyle(
               fontSize: tx12,
               fontWeight: FontWeight.w700,
-              color: kGrey500,
+              color: kMuted,
               letterSpacing: 0.8,
             ),
           ),
@@ -466,7 +468,7 @@ class FilterBar extends StatelessWidget {
             ),
           ),
           const SizedBox(height: s16),
-          const Divider(color: kGrey200, height: 1),
+          const Divider(color: kBorderDark, height: 1),
           const SizedBox(height: s16),
           Row(
             children: [
@@ -523,16 +525,18 @@ class FilterBar extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: s12, vertical: s8),
                     decoration: BoxDecoration(
-                      border: Border.all(color: kGrey200),
-                      borderRadius: BorderRadius.circular(s8),
+                      color: kCanvas,
+                      border: Border.all(color: kBorderDark),
+                      borderRadius: BorderRadius.circular(s4),
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         value: sortBy,
                         isDense: true,
+                        dropdownColor: kCanvas,
                         style: const TextStyle(
                           fontSize: tx12,
-                          color: kSecondary,
+                          color: kCream,
                           fontWeight: FontWeight.w600,
                         ),
                         items: [
@@ -573,6 +577,7 @@ class FilterChipWidget extends StatefulWidget {
   final Color color;
   final VoidCallback onTap;
   const FilterChipWidget({
+    super.key,
     required this.label,
     required this.isActive,
     required this.color,
@@ -590,11 +595,11 @@ class _FilterChipWidgetState extends State<FilterChipWidget> {
     final activeColor = widget.isActive
         ? widget.color
         : (_hovered
-        ? widget.color.withValues(alpha: 0.08)
-        : kGrey100);
+        ? widget.color.withValues(alpha: 0.12)
+        : kCanvas);
     final textColor = widget.isActive
-        ? kWhite
-        : (_hovered ? widget.color : kGrey700);
+        ? kSecondary
+        : (_hovered ? widget.color : kMuted);
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
@@ -609,7 +614,7 @@ class _FilterChipWidgetState extends State<FilterChipWidget> {
             color: activeColor,
             borderRadius: BorderRadius.circular(s20),
             border: Border.all(
-              color: widget.isActive ? widget.color : kGrey300,
+              color: widget.isActive ? widget.color : kBorderDark,
               width: widget.isActive ? 1.5 : 1,
             ),
           ),
@@ -630,7 +635,7 @@ class _FilterChipWidgetState extends State<FilterChipWidget> {
 // Shimmer Grid for Loading State
 class PropertyGridShimmer extends StatefulWidget {
   final int cols;
-  const PropertyGridShimmer({required this.cols});
+  const PropertyGridShimmer({super.key, required this.cols});
 
   @override
   State<PropertyGridShimmer> createState() => _PropertyGridShimmerState();
@@ -692,19 +697,21 @@ class _PropertyGridShimmerState extends State<PropertyGridShimmer>
 // Skeleton Card for Property Loading
 class PropertyCardSkeleton extends StatelessWidget {
   final Animation<double> anim;
-  const PropertyCardSkeleton({required this.anim});
+
+  const PropertyCardSkeleton({super.key, required this.anim});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: kWhite,
-        borderRadius: BorderRadius.circular(s12),
+        color: kSurface,
+        borderRadius: BorderRadius.circular(s4),
+        border: Border.all(color: kBorderDark),
         boxShadow: [
           BoxShadow(
-            color: kBlack.withValues(alpha: 0.05),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: kBlack.withValues(alpha: 0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -732,7 +739,7 @@ class PropertyCardSkeleton extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: s16),
-                const Divider(color: kGrey200, height: 1),
+                const Divider(color: kBorderDark, height: 1),
                 const SizedBox(height: s16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -758,6 +765,7 @@ class ShimmerBox extends StatelessWidget {
   final Animation<double> anim;
 
   const ShimmerBox({
+    super.key,
     required this.height,
     this.width,
     required this.radius,
@@ -777,7 +785,7 @@ class ShimmerBox extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment(-1.5 + anim.value * 3, 0),
               end: Alignment(-0.5 + anim.value * 3, 0),
-              colors: const [kGrey100, kGrey200, kGrey100],
+              colors: const [kDarkShimmer1, kDarkShimmer2, kDarkShimmer1],
             ),
           ),
         );

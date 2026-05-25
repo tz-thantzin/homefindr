@@ -23,6 +23,7 @@ const double s40 = 40.0;
 const double s42 = 42.0;
 const double s48 = 48.0;
 const double s50 = 50.0;
+const double s52 = 52.0;
 const double s55 = 55.0;
 const double s56 = 56.0;
 const double s60 = 60.0;
@@ -37,7 +38,9 @@ const double s200 = 200.0;
 
 /// ---------------- Font Size Constants (tx prefix) ----------------
 const double tx10 = 10.0;
+const double tx11 = 11.0;
 const double tx12 = 12.0;
+const double tx13 = 13.0;
 const double tx14 = 14.0;
 const double tx16 = 16.0;
 const double tx18 = 18.0;

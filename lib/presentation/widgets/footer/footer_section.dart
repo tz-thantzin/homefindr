@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../core/constants/constant_colors.dart';
@@ -14,7 +15,7 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kSecondary,
+      color: kFooterBg,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: s80, horizontal: s20),
       child: Center(
@@ -26,9 +27,30 @@ class FooterSection extends StatelessWidget {
                 desktop: (context) => _buildDesktopFooter(context),
                 mobile: (context) => _buildMobileFooter(context),
               ),
+
               const SizedBox(height: s60),
-              const Divider(color: Colors.white24),
-              const SizedBox(height: s30),
+
+              // Gold divider
+              Row(
+                children: [
+                  Expanded(child: Container(height: 1, color: kBorderDark)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: s20),
+                    child: Container(
+                      width: 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: kPrimary.withValues(alpha: 0.6),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Container(height: 1, color: kBorderDark)),
+                ],
+              ),
+
+              const SizedBox(height: s32),
+
               _buildBottomBar(context),
             ],
           ),
@@ -76,7 +98,10 @@ class FooterSection extends StatelessWidget {
       children: [
         const FooterBrandCol(),
         const SizedBox(height: s40),
-        _FooterLinksCol(title: context.localization.footer_quick_links, links: const ["Home", "Buy", "Rent", "Sell"]),
+        _FooterLinksCol(
+          title: context.localization.footer_quick_links,
+          links: const ["Home", "Buy", "Rent", "Sell"],
+        ),
         const SizedBox(height: s40),
         const _FooterContactCol(),
       ],
@@ -89,13 +114,16 @@ class FooterSection extends StatelessWidget {
       children: [
         Text(
           context.localization.footer_rights_reserved,
-          style: const TextStyle(color: Colors.white54, fontSize: tx14),
+          style: GoogleFonts.dmSans(
+            color: kMuted.withValues(alpha: 0.5),
+            fontSize: tx12,
+          ),
         ),
         Row(
           children: [
             _SocialIcon(icon: FontAwesomeIcons.facebookF, onTap: () {}),
             const SizedBox(width: s20),
-            _SocialIcon(icon: FontAwesomeIcons.twitter, onTap: () {}),
+            _SocialIcon(icon: FontAwesomeIcons.xTwitter, onTap: () {}),
             const SizedBox(width: s20),
             _SocialIcon(icon: FontAwesomeIcons.instagram, onTap: () {}),
             const SizedBox(width: s20),
@@ -119,33 +147,50 @@ class FooterBrandCol extends StatelessWidget {
         const SizedBox(height: s20),
         Text(
           context.localization.footer_description,
-          style: const TextStyle(color: Colors.white70, fontSize: tx14, height: 1.6),
+          style: GoogleFonts.dmSans(
+            color: kMuted.withValues(alpha: 0.65),
+            fontSize: tx14,
+            height: 1.7,
+          ),
         ),
-        const SizedBox(height: s30),
+        const SizedBox(height: s32),
         Text(
           context.localization.footer_newsletter_title,
-          style: const TextStyle(color: kWhite, fontWeight: FontWeight.bold, fontSize: tx14),
+          style: GoogleFonts.playfairDisplay(
+            color: kCream,
+            fontWeight: FontWeight.w600,
+            fontSize: tx16,
+          ),
         ),
-        const SizedBox(height: s15),
+        const SizedBox(height: s14),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: s15),
-          margin: const EdgeInsets.only(right: s25),
-          decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(s30)),
+          padding: const EdgeInsets.only(left: s16, right: s8),
+          margin: const EdgeInsets.only(right: s24),
+          decoration: BoxDecoration(
+            color: kSurface,
+            borderRadius: BorderRadius.circular(s2),
+            border: Border.all(color: kBorderDark),
+          ),
           child: Row(
             children: [
               Expanded(
                 child: TextField(
-                  style: const TextStyle(color: kWhite, fontSize: tx14),
+                  style: GoogleFonts.dmSans(color: kCream, fontSize: tx14),
+                  cursorColor: kPrimary,
                   decoration: InputDecoration(
                     hintText: context.localization.footer_newsletter_hint,
-                    hintStyle: const TextStyle(color: Colors.white38, fontSize: tx14),
+                    hintStyle: GoogleFonts.dmSans(color: kMuted.withValues(alpha: 0.5), fontSize: tx14),
                     border: InputBorder.none,
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.send, color: kPrimary, size: s20),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: s14, vertical: s10),
+                decoration: const BoxDecoration(
+                  color: kPrimary,
+                  borderRadius: BorderRadius.all(Radius.circular(s2)),
+                ),
+                child: const Icon(Icons.send, color: kSecondary, size: s16),
               ),
             ],
           ),
@@ -168,25 +213,58 @@ class _FooterLinksCol extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(color: kWhite, fontSize: tx18, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: s25),
-        ...links.map(
-              (link) => Padding(
-            padding: const EdgeInsets.only(bottom: s15),
-            child: InkWell(
-              onTap: () {
-                debugPrint("Footer Link Pressed:: $link");
-                context.goNamed(link);
-              },
-              child: Text(
-                link,
-                style: const TextStyle(color: Colors.white60, fontSize: tx14),
-              ),
-            ),
+          style: GoogleFonts.playfairDisplay(
+            color: kCream,
+            fontSize: tx16,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: s20),
+
+        // Thin gold underline
+        Container(width: 24, height: 1.5, color: kPrimary),
+
+        const SizedBox(height: s20),
+
+        ...links.map(
+          (link) => _FooterLink(link: link),
+        ),
       ],
+    );
+  }
+}
+
+class _FooterLink extends StatefulWidget {
+  final String link;
+  const _FooterLink({required this.link});
+
+  @override
+  State<_FooterLink> createState() => _FooterLinkState();
+}
+
+class _FooterLinkState extends State<_FooterLink> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => context.goNamed(widget.link),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: s14),
+          child: AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 200),
+            style: GoogleFonts.dmSans(
+              color: _hovered ? kPrimary : kMuted.withValues(alpha: 0.6),
+              fontSize: tx14,
+            ),
+            child: Text(widget.link),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -201,13 +279,18 @@ class _FooterContactCol extends StatelessWidget {
       children: [
         Text(
           context.localization.footer_contact_us,
-          style: const TextStyle(color: kWhite, fontSize: tx18, fontWeight: FontWeight.bold),
+          style: GoogleFonts.playfairDisplay(
+            color: kCream,
+            fontSize: tx16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        const SizedBox(height: s25),
+        const SizedBox(height: s20),
+        Container(width: 24, height: 1.5, color: kPrimary),
+        const SizedBox(height: s20),
         const _ContactItem(icon: Icons.location_on_outlined, text: "Bangkok, Thailand"),
         const _ContactItem(icon: Icons.phone_outlined, text: "+95 123-123-123"),
-        const _ContactItem(icon: Icons.email_outlined, text: "support@homez.com"),
-        _ContactItem(icon: Icons.access_time, text: context.localization.footer_monday_friday),
+        const _ContactItem(icon: Icons.email_outlined, text: "support@homefindr.com"),
       ],
     );
   }
@@ -222,16 +305,20 @@ class _ContactItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: s20),
+      padding: const EdgeInsets.only(bottom: s16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: kPrimary, size: s20),
-          const SizedBox(width: s15),
+          Icon(icon, color: kPrimary, size: s16),
+          const SizedBox(width: s12),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: Colors.white60, fontSize: tx14),
+              style: GoogleFonts.dmSans(
+                color: kMuted.withValues(alpha: 0.6),
+                fontSize: tx14,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -240,17 +327,39 @@ class _ContactItem extends StatelessWidget {
   }
 }
 
-class _SocialIcon extends StatelessWidget {
+class _SocialIcon extends StatefulWidget {
   final IconData icon;
   final VoidCallback onTap;
 
   const _SocialIcon({required this.icon, required this.onTap});
 
   @override
+  State<_SocialIcon> createState() => _SocialIconState();
+}
+
+class _SocialIconState extends State<_SocialIcon> {
+  bool _hovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: FaIcon(icon, color: Colors.white54, size: s18),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.all(s8),
+          decoration: BoxDecoration(
+            color: _hovered ? kPrimary.withValues(alpha: 0.15) : kTransparent,
+            borderRadius: BorderRadius.circular(s2),
+            border: Border.all(color: _hovered ? kPrimary.withValues(alpha: 0.5) : kBorderDark),
+          ),
+          child: FaIcon(widget.icon, color: _hovered ? kPrimary : kMuted.withValues(alpha: 0.5), size: s14),
+        ),
+      ),
     );
   }
 }
+

@@ -58,11 +58,14 @@ class _DesktopNavBarState extends State<DesktopNavBar> {
       curve: Curves.easeInOut,
       decoration: BoxDecoration(
         color: showTransparent
-            ? kBlack.withValues(alpha: 0.18)
-            : kSecondary,
+            ? kBlack.withValues(alpha: 0.2)
+            : kNavBg,
+        border: showTransparent
+            ? null
+            : const Border(bottom: BorderSide(color: kBorderDark, width: 1)),
         boxShadow: showTransparent
-            ? []
-            : [BoxShadow(color: kBlack.withValues(alpha: 0.25), blurRadius: 24, offset: const Offset(0, 4))],
+            ? const []
+            : [BoxShadow(color: kBlack.withValues(alpha: 0.6), blurRadius: 32, offset: const Offset(0, 4))],
       ),
       child: _NavBarContent(isScrolled: _isScrolled),
     );
@@ -140,7 +143,7 @@ class _NavBarContent extends StatelessWidget {
 
           const SizedBox(width: s20),
 
-          _ContactButton()
+          const _ContactButton()
               .animate()
               .fadeIn(delay: 350.ms, duration: 400.ms)
               .slideX(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
@@ -263,13 +266,7 @@ class _NavItemState extends State<_NavItem> with SingleTickerProviderStateMixin 
                       alignment: Alignment.centerLeft,
                       child: FractionallySizedBox(
                         widthFactor: _underlineWidth.value,
-                        child: Container(
-                          height: 2,
-                          decoration: BoxDecoration(
-                            color: kPrimary,
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                        ),
+                        child: const _NavUnderline(),
                       ),
                     ),
                   ),
@@ -278,6 +275,24 @@ class _NavItemState extends State<_NavItem> with SingleTickerProviderStateMixin 
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────
+// Shared nav-item gold underline
+// ─────────────────────────────────────────────
+class _NavUnderline extends StatelessWidget {
+  const _NavUnderline();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 2,
+      decoration: const BoxDecoration(
+        color: kPrimary,
+        borderRadius: BorderRadius.all(Radius.circular(2)),
       ),
     );
   }
@@ -475,13 +490,7 @@ class _DropdownNavItemState extends State<_DropdownNavItem>
                             alignment: Alignment.centerLeft,
                             child: FractionallySizedBox(
                               widthFactor: _underlineWidth.value,
-                              child: Container(
-                                height: 2,
-                                decoration: BoxDecoration(
-                                  color: kPrimary,
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                              ),
+                              child: const _NavUnderline(),
                             ),
                           ),
                         ),
@@ -512,16 +521,16 @@ class _MegaMenuPanel extends StatelessWidget {
     return Container(
       width: 340,
       decoration: BoxDecoration(
-        color: kSecondary,
+        color: kCanvas,
         borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-          topRight: Radius.circular(16),
+          bottomLeft: Radius.circular(4),
+          bottomRight: Radius.circular(4),
+          topRight: Radius.circular(4),
         ),
-        border: Border.all(color: kWhite.withValues(alpha: 0.08)),
+        border: Border.all(color: kBorderDark),
         boxShadow: [
           BoxShadow(
-            color: kBlack.withValues(alpha: 0.35),
+            color: kBlack.withValues(alpha: 0.5),
             blurRadius: 32,
             offset: const Offset(0, 12),
           ),
@@ -537,7 +546,7 @@ class _MegaMenuPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Browse by type',
+                  context.localization.nav_browse_by_type,
                   style: TextStyle(
                     color: kWhite.withValues(alpha: 0.45),
                     fontSize: tx12,
@@ -548,7 +557,7 @@ class _MegaMenuPanel extends StatelessWidget {
                 GestureDetector(
                   onTap: () => context.goNamed(routeName),
                   child: Text(
-                    'View all →',
+                    context.localization.nav_view_all,
                     style: TextStyle(color: kPrimary, fontSize: tx12, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -731,11 +740,11 @@ class _LanguageSwitcherState extends ConsumerState<_LanguageSwitcher> {
                   child: Container(
                     width: 160,
                     decoration: BoxDecoration(
-                      color: kSecondary,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: kWhite.withValues(alpha: 0.08)),
+                      color: kCanvas,
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: kBorderDark),
                       boxShadow: [
-                        BoxShadow(color: kBlack.withValues(alpha: 0.3), blurRadius: 20, offset: const Offset(0, 8)),
+                        BoxShadow(color: kBlack.withValues(alpha: 0.5), blurRadius: 20, offset: const Offset(0, 8)),
                       ],
                     ),
                     child: Column(
@@ -841,6 +850,8 @@ class _LanguageSwitcherState extends ConsumerState<_LanguageSwitcher> {
 // Contact CTA Button
 // ─────────────────────────────────────────────
 class _ContactButton extends StatefulWidget {
+  const _ContactButton();
+
   @override
   State<_ContactButton> createState() => _ContactButtonState();
 }

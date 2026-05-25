@@ -60,7 +60,6 @@ class _DetailContentState extends State<_DetailContent> {
   int _selectedImage = 0;
   bool _isFavorited = false;
 
-  // Simulated gallery — in real app these come from property.images
   List<String> get _gallery => [
     widget.property.imageUrl,
     'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
@@ -85,7 +84,6 @@ class _DetailContentState extends State<_DetailContent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Hero Image Gallery ──
             _HeroGallery(
               gallery: _gallery,
               selectedIndex: _selectedImage,
@@ -95,7 +93,6 @@ class _DetailContentState extends State<_DetailContent> {
               onFavorite: () => setState(() => _isFavorited = !_isFavorited),
             ),
 
-            // ── Body ──
             Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
@@ -109,7 +106,6 @@ class _DetailContentState extends State<_DetailContent> {
               ),
             ),
 
-            // ── Similar Properties ──
             if (widget.similar.isNotEmpty) _SimilarSection(similar: widget.similar),
 
             const FooterSection(),
@@ -142,7 +138,7 @@ class _DetailContentState extends State<_DetailContent> {
 }
 
 // ─────────────────────────────────────────────
-// Hero Gallery with crossfade + thumbnails
+// Hero Gallery
 // ─────────────────────────────────────────────
 class _HeroGallery extends StatelessWidget {
   final List<String> gallery;
@@ -169,7 +165,6 @@ class _HeroGallery extends StatelessWidget {
       height: isMobile ? 280 : 520,
       child: Stack(
         children: [
-          // Main image with Hero widget for shared element transition
           Positioned.fill(
             child: Hero(
               tag: 'property_image_${property.id}',
@@ -180,13 +175,12 @@ class _HeroGallery extends StatelessWidget {
                   imageUrl: gallery[selectedIndex],
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  placeholder: (_, _) => Container(color: kGrey200),
+                  placeholder: (_, _) => Container(color: kDarkShimmer1),
                 ),
               ),
             ),
           ),
 
-          // Dark gradient overlay at bottom
           Positioned(
             bottom: 0,
             left: 0,
@@ -203,7 +197,6 @@ class _HeroGallery extends StatelessWidget {
             ),
           ),
 
-          // Back button
           Positioned(
             top: 110,
             left: s20,
@@ -213,16 +206,14 @@ class _HeroGallery extends StatelessWidget {
             ).animate().fadeIn(duration: 400.ms).slideX(begin: -0.3),
           ),
 
-          // Favorite + Share buttons
           Positioned(
             top: 110,
             right: s20,
             child: Row(
               children: [
-                _CircleIconBtn(
-                  icon: Icons.share_outlined,
-                  onTap: () {},
-                ).animate().fadeIn(delay: 100.ms, duration: 400.ms),
+                _CircleIconBtn(icon: Icons.share_outlined, onTap: null)
+                    .animate()
+                    .fadeIn(delay: 100.ms, duration: 400.ms),
                 const SizedBox(width: s10),
                 _CircleIconBtn(
                   icon: isFavorited ? Icons.favorite : Icons.favorite_border,
@@ -233,7 +224,6 @@ class _HeroGallery extends StatelessWidget {
             ),
           ),
 
-          // Price + status bottom left
           Positioned(
             bottom: s20,
             left: s20,
@@ -255,7 +245,6 @@ class _HeroGallery extends StatelessWidget {
             ),
           ),
 
-          // Thumbnail strip bottom right
           if (!isMobile)
             Positioned(
               bottom: s16,
@@ -320,26 +309,25 @@ class _DetailsColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Breadcrumb
         Row(
           children: [
             GestureDetector(
               onTap: () => context.goNamed(RouteName.home),
               child: Text(
                 context.localization.contact_breadcrumb_home,
-                style: TextStyle(color: kPrimary, fontSize: tx14, fontWeight: FontWeight.w500),
+                style: const TextStyle(color: kPrimary, fontSize: tx14, fontWeight: FontWeight.w500),
               ),
             ),
-            Icon(Icons.chevron_right, size: s16, color: kGrey400),
+            const Icon(Icons.chevron_right, size: s16, color: kMuted),
             Text(
               _typeLabel(context, property.type),
-              style: TextStyle(color: kGrey500, fontSize: tx14),
+              style: const TextStyle(color: kMuted, fontSize: tx14),
             ),
-            Icon(Icons.chevron_right, size: s16, color: kGrey400),
+            const Icon(Icons.chevron_right, size: s16, color: kMuted),
             Expanded(
               child: Text(
                 property.title,
-                style: TextStyle(color: kGrey700, fontSize: tx14),
+                style: const TextStyle(color: kMuted, fontSize: tx14),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -348,39 +336,32 @@ class _DetailsColumn extends StatelessWidget {
 
         const SizedBox(height: s20),
 
-        // Title
         Text(
           property.title,
-          style: const TextStyle(fontSize: tx32, fontWeight: FontWeight.w800, color: kSecondary, height: 1.2),
+          style: const TextStyle(fontSize: tx32, fontWeight: FontWeight.w800, color: kCream, height: 1.2),
         ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2),
 
         const SizedBox(height: s12),
 
-        // Location
         Row(
           children: [
             const Icon(Icons.location_on_outlined, color: kPrimary, size: s18),
             const SizedBox(width: s6),
-            Text(
-              property.location,
-              style: const TextStyle(color: kGrey700, fontSize: tx16),
-            ),
+            Text(property.location, style: const TextStyle(color: kMuted, fontSize: tx16)),
           ],
         ).animate().fadeIn(delay: 150.ms, duration: 500.ms),
 
         const SizedBox(height: s24),
 
-        // Stats row
         _StatsRow(property: property).animate().fadeIn(delay: 200.ms, duration: 500.ms).slideY(begin: 0.15),
 
         const SizedBox(height: s32),
-        const Divider(color: kGrey200),
+        const Divider(color: kBorderDark),
         const SizedBox(height: s32),
 
-        // About
         Text(
           context.localization.property_detail_about,
-          style: TextStyle(fontSize: tx22, fontWeight: FontWeight.w700, color: kSecondary),
+          style: const TextStyle(fontSize: tx22, fontWeight: FontWeight.w700, color: kCream),
         ).animate().fadeIn(delay: 250.ms),
 
         const SizedBox(height: s16),
@@ -393,17 +374,16 @@ class _DetailsColumn extends StatelessWidget {
             property.baths,
             property.sqft,
           ),
-          style: const TextStyle(fontSize: tx16, color: kGrey800, height: 1.75),
+          style: const TextStyle(fontSize: tx16, color: kMuted, height: 1.75),
         ).animate().fadeIn(delay: 300.ms, duration: 500.ms),
 
         const SizedBox(height: s32),
-        const Divider(color: kGrey200),
+        const Divider(color: kBorderDark),
         const SizedBox(height: s32),
 
-        // Features
         Text(
           context.localization.property_detail_features_amenities,
-          style: TextStyle(fontSize: tx22, fontWeight: FontWeight.w700, color: kSecondary),
+          style: const TextStyle(fontSize: tx22, fontWeight: FontWeight.w700, color: kCream),
         ).animate().fadeIn(delay: 350.ms),
 
         const SizedBox(height: s20),
@@ -411,13 +391,12 @@ class _DetailsColumn extends StatelessWidget {
         _FeaturesGrid().animate().fadeIn(delay: 400.ms, duration: 500.ms),
 
         const SizedBox(height: s32),
-        const Divider(color: kGrey200),
+        const Divider(color: kBorderDark),
         const SizedBox(height: s32),
 
-        // Map placeholder
         Text(
           context.localization.property_detail_location,
-          style: TextStyle(fontSize: tx22, fontWeight: FontWeight.w700, color: kSecondary),
+          style: const TextStyle(fontSize: tx22, fontWeight: FontWeight.w700, color: kCream),
         ).animate().fadeIn(delay: 450.ms),
 
         const SizedBox(height: s16),
@@ -429,20 +408,13 @@ class _DetailsColumn extends StatelessWidget {
     );
   }
 
-  String _typeLabel(BuildContext context, PropertyType type) {
-    switch (type) {
-      case PropertyType.apartment:
-        return context.localization.property_type_section_apartment;
-      case PropertyType.villa:
-        return context.localization.property_type_section_villa;
-      case PropertyType.studio:
-        return context.localization.property_type_section_studio;
-      case PropertyType.office:
-        return context.localization.property_type_section_office;
-      case PropertyType.townhouse:
-        return context.localization.property_type_section_townhouse;
-    }
-  }
+  String _typeLabel(BuildContext context, PropertyType type) => switch (type) {
+    PropertyType.apartment => context.localization.property_type_section_apartment,
+    PropertyType.villa     => context.localization.property_type_section_villa,
+    PropertyType.studio    => context.localization.property_type_section_studio,
+    PropertyType.office    => context.localization.property_type_section_office,
+    PropertyType.townhouse => context.localization.property_type_section_townhouse,
+  };
 }
 
 class _StatsRow extends StatelessWidget {
@@ -487,18 +459,18 @@ class _StatChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: s16, vertical: s10),
       decoration: BoxDecoration(
-        color: highlight ? kPrimary.withValues(alpha: 0.08) : kGrey100,
+        color: highlight ? kPrimary.withValues(alpha: 0.08) : kSurface,
         borderRadius: BorderRadius.circular(s8),
-        border: Border.all(color: highlight ? kPrimary.withValues(alpha: 0.3) : kGrey200),
+        border: Border.all(color: highlight ? kPrimary.withValues(alpha: 0.3) : kBorderDark),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: s16, color: highlight ? kPrimary : kGrey700),
+          Icon(icon, size: s16, color: highlight ? kPrimary : kMuted),
           const SizedBox(width: s8),
           Text(
             label,
-            style: TextStyle(fontSize: tx14, fontWeight: FontWeight.w600, color: highlight ? kPrimary : kSecondary),
+            style: TextStyle(fontSize: tx14, fontWeight: FontWeight.w600, color: highlight ? kPrimary : kCream),
           ),
         ],
       ),
@@ -525,35 +497,46 @@ class _FeaturesGrid extends StatelessWidget {
       spacing: s12,
       runSpacing: s12,
       children: features.asMap().entries.map((e) {
-        return Container(
-              width: 160,
-              padding: const EdgeInsets.symmetric(horizontal: s14, vertical: s10),
-              decoration: BoxDecoration(
-                border: Border.all(color: kGrey200),
-                borderRadius: BorderRadius.circular(s8),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(e.value['icon'] as IconData, size: s16, color: kPrimary),
-                  const SizedBox(width: s8),
-                  Flexible(
-                    child: Text(
-                      e.value['label'] as String,
-                      style: const TextStyle(fontSize: tx12, fontWeight: FontWeight.w500, color: kGrey800),
-                    ),
-                  ),
-                ],
-              ),
-            )
-            .animate()
-            .fadeIn(
-              delay: Duration(milliseconds: e.key * 50),
-              duration: 350.ms,
-            )
-            .scale(begin: const Offset(0.92, 0.92));
+        return _FeatureChip(
+          icon: e.value['icon'] as IconData,
+          label: e.value['label'] as String,
+          index: e.key,
+        );
       }).toList(),
     );
+  }
+}
+
+class _FeatureChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final int index;
+
+  const _FeatureChip({required this.icon, required this.label, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+          width: 160,
+          padding: const EdgeInsets.symmetric(horizontal: s14, vertical: s10),
+          decoration: BoxDecoration(
+            border: Border.all(color: kBorderDark),
+            borderRadius: BorderRadius.circular(s8),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: s16, color: kPrimary),
+              const SizedBox(width: s8),
+              Flexible(
+                child: Text(label, style: const TextStyle(fontSize: tx12, fontWeight: FontWeight.w500, color: kMuted)),
+              ),
+            ],
+          ),
+        )
+        .animate()
+        .fadeIn(delay: Duration(milliseconds: index * 50), duration: 350.ms)
+        .scale(begin: const Offset(0.92, 0.92));
   }
 }
 
@@ -568,15 +551,14 @@ class _MapPlaceholder extends StatelessWidget {
       height: 260,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: kGrey100,
+        color: kSurface,
         borderRadius: BorderRadius.circular(s16),
-        border: Border.all(color: kGrey200),
+        border: Border.all(color: kBorderDark),
       ),
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Grid lines to simulate a map
-          CustomPaint(painter: _MapGridPainter(), child: const SizedBox.expand()),
+          CustomPaint(painter: const _MapGridPainter(), child: const SizedBox.expand()),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -593,13 +575,13 @@ class _MapPlaceholder extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: s16, vertical: s8),
                 decoration: BoxDecoration(
-                  color: kWhite,
+                  color: kSurface,
                   borderRadius: BorderRadius.circular(s20),
-                  boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.1), blurRadius: 10)],
+                  boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.3), blurRadius: 10)],
                 ),
                 child: Text(
                   location,
-                  style: const TextStyle(fontSize: tx14, fontWeight: FontWeight.w600, color: kSecondary),
+                  style: const TextStyle(fontSize: tx14, fontWeight: FontWeight.w600, color: kCream),
                 ),
               ),
             ],
@@ -611,10 +593,12 @@ class _MapPlaceholder extends StatelessWidget {
 }
 
 class _MapGridPainter extends CustomPainter {
+  const _MapGridPainter();
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = kGrey300.withValues(alpha: 0.5)
+      ..color = kBorderDark.withValues(alpha: 0.5)
       ..strokeWidth = 1;
 
     for (double x = 0; x < size.width; x += 40) {
@@ -624,9 +608,8 @@ class _MapGridPainter extends CustomPainter {
       canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
 
-    // Draw some fake roads
     final roadPaint = Paint()
-      ..color = kWhite
+      ..color = kSurface
       ..strokeWidth = 10
       ..strokeCap = StrokeCap.round;
     canvas.drawLine(Offset(0, size.height * 0.45), Offset(size.width, size.height * 0.45), roadPaint);
@@ -668,75 +651,32 @@ class _ContactAgentCardState extends State<_ContactAgentCard> {
     return Container(
       padding: const EdgeInsets.all(s28),
       decoration: BoxDecoration(
-        color: kWhite,
+        color: kSurface,
         borderRadius: BorderRadius.circular(s16),
-        border: Border.all(color: kGrey200),
-        boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.06), blurRadius: 24, offset: const Offset(0, 8))],
+        border: Border.all(color: kBorderDark),
+        boxShadow: [BoxShadow(color: kBlack.withValues(alpha: 0.3), blurRadius: 24, offset: const Offset(0, 8))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Agent info
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 26,
-                backgroundColor: kPrimary.withValues(alpha: 0.12),
-                child: const Icon(Icons.person, color: kPrimary, size: s28),
-              ),
-              const SizedBox(width: s14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.localization.property_detail_agent_name,
-                      style: TextStyle(fontSize: tx16, fontWeight: FontWeight.w700, color: kSecondary),
-                    ),
-                    Text(
-                      context.localization.property_detail_agent_title,
-                      style: TextStyle(fontSize: tx12, color: kGrey500),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: s8, vertical: s4),
-                decoration: BoxDecoration(
-                  color: Colors.green.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(s20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 6,
-                      height: 6,
-                      decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      context.localization.property_detail_agent_online,
-                      style: TextStyle(fontSize: 10, color: Colors.green, fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          _AgentInfoRow(
+            name: context.localization.property_detail_agent_name,
+            title: context.localization.property_detail_agent_title,
+            onlineLabel: context.localization.property_detail_agent_online,
           ),
 
           const SizedBox(height: s20),
-          const Divider(color: kGrey200),
+          const Divider(color: kBorderDark),
           const SizedBox(height: s20),
 
           Text(
             context.localization.property_detail_send_message,
-            style: TextStyle(fontSize: tx18, fontWeight: FontWeight.w700, color: kSecondary),
+            style: const TextStyle(fontSize: tx18, fontWeight: FontWeight.w700, color: kCream),
           ),
           const SizedBox(height: s4),
           Text(
             context.localization.property_detail_interested_in(widget.property.title),
-            style: TextStyle(fontSize: tx12, color: kGrey500),
+            style: const TextStyle(fontSize: tx12, color: kMuted),
             overflow: TextOverflow.ellipsis,
           ),
 
@@ -763,7 +703,6 @@ class _ContactAgentCardState extends State<_ContactAgentCard> {
 
           const SizedBox(height: s20),
 
-          // Send message button
           SizedBox(
             width: double.infinity,
             child: AnimatedSlideButton(
@@ -780,45 +719,112 @@ class _ContactAgentCardState extends State<_ContactAgentCard> {
 
           const SizedBox(height: s12),
 
-          // Call button
           SizedBox(
             width: double.infinity,
             height: s48,
             child: OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: null,
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: kGrey300),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                side: const BorderSide(color: kBorderDark),
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               ),
-              icon: const Icon(Icons.phone_outlined, size: s16, color: kSecondary),
+              icon: const Icon(Icons.phone_outlined, size: s16, color: kMuted),
               label: Text(
                 context.localization.property_detail_call_agent,
-                style: TextStyle(color: kSecondary, fontWeight: FontWeight.w600, fontSize: tx14),
+                style: const TextStyle(color: kCream, fontWeight: FontWeight.w600, fontSize: tx14),
               ),
             ),
           ),
 
           const SizedBox(height: s20),
-          const Divider(color: kGrey200),
+          const Divider(color: kBorderDark),
           const SizedBox(height: s16),
 
-          // Price breakdown
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Listed Price',
-                style: TextStyle(fontSize: tx14, color: kGrey700),
-              ),
-              Text(
-                widget.property.price,
-                style: const TextStyle(fontSize: tx18, fontWeight: FontWeight.w800, color: kPrimary),
-              ),
-            ],
+          _ListedPriceRow(
+            label: context.localization.property_detail_listed_price,
+            price: widget.property.price,
           ),
         ],
       ),
     ).animate().fadeIn(delay: 400.ms, duration: 600.ms).slideX(begin: 0.1, end: 0, curve: Curves.easeOutCubic);
+  }
+}
+
+// ─────────────────────────────────────────────
+// Agent card sub-widgets
+// ─────────────────────────────────────────────
+class _AgentInfoRow extends StatelessWidget {
+  final String name;
+  final String title;
+  final String onlineLabel;
+
+  const _AgentInfoRow({required this.name, required this.title, required this.onlineLabel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 26,
+          backgroundColor: kPrimary.withValues(alpha: 0.12),
+          child: const Icon(Icons.person, color: kPrimary, size: s28),
+        ),
+        const SizedBox(width: s14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(name, style: const TextStyle(fontSize: tx16, fontWeight: FontWeight.w700, color: kCream)),
+              Text(title, style: const TextStyle(fontSize: tx12, color: kMuted)),
+            ],
+          ),
+        ),
+        _OnlineBadge(label: onlineLabel),
+      ],
+    );
+  }
+}
+
+class _OnlineBadge extends StatelessWidget {
+  final String label;
+
+  const _OnlineBadge({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: s8, vertical: s4),
+      decoration: BoxDecoration(
+        color: Colors.green.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(s20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(width: 6, height: 6, decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle)),
+          const SizedBox(width: 4),
+          Text(label, style: const TextStyle(fontSize: 10, color: Colors.green, fontWeight: FontWeight.w600)),
+        ],
+      ),
+    );
+  }
+}
+
+class _ListedPriceRow extends StatelessWidget {
+  final String label;
+  final String price;
+
+  const _ListedPriceRow({required this.label, required this.price});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: const TextStyle(fontSize: tx14, color: kMuted)),
+        Text(price, style: const TextStyle(fontSize: tx18, fontWeight: FontWeight.w800, color: kPrimary)),
+      ],
+    );
   }
 }
 
@@ -834,21 +840,21 @@ class _InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: kGrey100,
+        color: kCanvas,
         borderRadius: BorderRadius.circular(s8),
-        border: Border.all(color: kGrey200),
+        border: Border.all(color: kBorderDark),
       ),
       child: TextField(
         controller: controller,
         maxLines: maxLines,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: kGrey500, fontSize: tx14),
-          prefixIcon: maxLines == 1 ? Icon(icon, size: s16, color: kGrey500) : null,
+          hintStyle: const TextStyle(color: kMuted, fontSize: tx14),
+          prefixIcon: maxLines == 1 ? Icon(icon, size: s16, color: kMuted) : null,
           contentPadding: EdgeInsets.symmetric(horizontal: maxLines > 1 ? s16 : 0, vertical: s14),
           border: InputBorder.none,
         ),
-        style: const TextStyle(fontSize: tx14, color: kSecondary),
+        style: const TextStyle(fontSize: tx14, color: kCream),
       ),
     );
   }
@@ -865,7 +871,7 @@ class _SimilarSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kGrey100,
+      color: kCanvas,
       padding: const EdgeInsets.symmetric(vertical: s60),
       child: Center(
         child: ConstrainedBox(
@@ -877,7 +883,7 @@ class _SimilarSection extends StatelessWidget {
               children: [
                 Text(
                   context.localization.property_detail_similar,
-                  style: TextStyle(fontSize: tx28, fontWeight: FontWeight.w800, color: kSecondary),
+                  style: const TextStyle(fontSize: tx28, fontWeight: FontWeight.w800, color: kCream),
                 ).animate().fadeIn(duration: 500.ms),
                 const SizedBox(height: s32),
                 ScreenTypeLayout.builder(desktop: (_) => _buildRow(context), mobile: (_) => _buildColumn(context)),
@@ -897,23 +903,19 @@ class _SimilarSection extends StatelessWidget {
             padding: EdgeInsets.only(left: e.key == 0 ? 0 : s16),
             child: GestureDetector(
               onTap: () => context.goNamed(RouteName.propertyDetail, pathParameters: {'id': e.value.id}),
-              child:
-                  PropertyCard(
-                        imageUrl: e.value.imageUrl,
-                        title: e.value.title,
-                        location: e.value.location,
-                        price: e.value.price,
-                        status: e.value.status,
-                        beds: e.value.beds,
-                        baths: e.value.baths,
-                        sqft: e.value.sqft,
-                      )
-                      .animate()
-                      .fadeIn(
-                        delay: Duration(milliseconds: e.key * 150),
-                        duration: 600.ms,
-                      )
-                      .slideY(begin: 0.2),
+              child: PropertyCard(
+                    imageUrl: e.value.imageUrl,
+                    title: e.value.title,
+                    location: e.value.location,
+                    price: e.value.price,
+                    status: e.value.status,
+                    beds: e.value.beds,
+                    baths: e.value.baths,
+                    sqft: e.value.sqft,
+                  )
+                  .animate()
+                  .fadeIn(delay: Duration(milliseconds: e.key * 150), duration: 600.ms)
+                  .slideY(begin: 0.2),
             ),
           ),
         );
@@ -928,20 +930,16 @@ class _SimilarSection extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: s16),
           child: GestureDetector(
             onTap: () => context.goNamed(RouteName.propertyDetail, pathParameters: {'id': e.value.id}),
-            child:
-                PropertyCard(
-                  imageUrl: e.value.imageUrl,
-                  title: e.value.title,
-                  location: e.value.location,
-                  price: e.value.price,
-                  status: e.value.status,
-                  beds: e.value.beds,
-                  baths: e.value.baths,
-                  sqft: e.value.sqft,
-                ).animate().fadeIn(
-                  delay: Duration(milliseconds: e.key * 150),
-                  duration: 600.ms,
-                ),
+            child: PropertyCard(
+              imageUrl: e.value.imageUrl,
+              title: e.value.title,
+              location: e.value.location,
+              price: e.value.price,
+              status: e.value.status,
+              beds: e.value.beds,
+              baths: e.value.baths,
+              sqft: e.value.sqft,
+            ).animate().fadeIn(delay: Duration(milliseconds: e.key * 150), duration: 600.ms),
           ),
         );
       }).toList(),
@@ -959,11 +957,11 @@ class _StatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = status == 'For Rent'
-        ? kSecondary
-        : status == 'Sold'
-        ? kGrey700
-        : kPrimary;
+    final color = switch (status) {
+      'For Rent' => kBadgeRent,
+      'Sold'     => kBadgeSold,
+      _          => kPrimary,
+    };
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: s12, vertical: s6),
       decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(s4)),
@@ -977,7 +975,7 @@ class _StatusBadge extends StatelessWidget {
 
 class _CircleIconBtn extends StatelessWidget {
   final IconData icon;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Color? iconColor;
 
   const _CircleIconBtn({required this.icon, required this.onTap, this.iconColor});
@@ -1014,7 +1012,7 @@ class _DetailLoadingScreen extends StatelessWidget {
             const SizedBox(height: s16),
             Text(
               context.localization.property_detail_loading,
-              style: TextStyle(color: kGrey500, fontSize: tx14),
+              style: const TextStyle(color: kMuted, fontSize: tx14),
             ),
           ],
         ),
@@ -1034,7 +1032,6 @@ class _DetailErrorScreen extends StatelessWidget {
   }
 }
 
-// Reuse mobile scroll nav from home
 class _MobileScrollNavBar extends StatefulWidget {
   const _MobileScrollNavBar();
 
@@ -1044,21 +1041,24 @@ class _MobileScrollNavBar extends StatefulWidget {
 
 class _MobileScrollNavBarState extends State<_MobileScrollNavBar> {
   bool _isScrolled = false;
+  ScrollController? _scrollController;
 
   void _onScroll() {
-    final scrolled = PrimaryScrollController.of(context).offset > 50;
+    final scrolled = (_scrollController?.offset ?? 0) > 50;
     if (scrolled != _isScrolled) setState(() => _isScrolled = scrolled);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    PrimaryScrollController.of(context).addListener(_onScroll);
+    _scrollController?.removeListener(_onScroll);
+    _scrollController = PrimaryScrollController.maybeOf(context);
+    _scrollController?.addListener(_onScroll);
   }
 
   @override
   void dispose() {
-    PrimaryScrollController.of(context).removeListener(_onScroll);
+    _scrollController?.removeListener(_onScroll);
     super.dispose();
   }
 

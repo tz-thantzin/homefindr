@@ -15,55 +15,64 @@ class SubscriptionSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Watch the billing cycle state directly using the provided ref
     final isYearly = ref.watch(billingCycleProvider);
 
     return Container(
       width: double.infinity,
-      color: kWhite,
+      color: kCanvas,
       padding: const EdgeInsets.symmetric(vertical: s80),
-      child: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
-            padding: const EdgeInsets.symmetric(horizontal: s24, vertical: s64),
-            child: Column(
-              children: [
-                // Header
-                Text(
-                  context.localization.subscription_section_title,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    fontSize: tx48,
-                    fontWeight: FontWeight.bold,
-                    color: kSecondary,
-                    height: 1.2,
-                  ),
-                ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2),
-
-                const SizedBox(height: s16),
-
-                Text(
-                  context.localization.subscription_section_subtitle,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(fontSize: tx16, color: const Color(0xFF64748B)),
-                ).animate().fadeIn(delay: 200.ms),
-
-                const SizedBox(height: s40),
-
-                // Toggle
-                _BillingToggle(isYearly: isYearly),
-
-                const SizedBox(height: s48),
-
-                // Grid - Uses ScreenTypeLayout for responsive switching
-                ScreenTypeLayout.builder(
-                  mobile: (context) => _buildVerticalLayout(context, isYearly),
-                  tablet: (context) => _buildHorizontalLayout(context, isYearly),
-                  desktop: (context) => _buildHorizontalLayout(context, isYearly),
+      child: Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: kMaxContentWidth),
+          padding: const EdgeInsets.symmetric(horizontal: s24, vertical: s48),
+          child: Column(
+            children: [
+              // ── Header ──
+              Text(
+                context.localization.subscription_section_title,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: tx48,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                  color: kCream,
+                  height: 1.2,
                 ),
-              ],
-            ),
+              ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2),
+
+              const SizedBox(height: s16),
+
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(width: 40, height: 1, color: kPrimary.withValues(alpha: 0.4)),
+                  const SizedBox(width: s8),
+                  Container(width: 6, height: 6, decoration: const BoxDecoration(color: kPrimary, shape: BoxShape.circle)),
+                  const SizedBox(width: s8),
+                  Container(width: 40, height: 1, color: kPrimary.withValues(alpha: 0.4)),
+                ],
+              ).animate().fadeIn(delay: 100.ms, duration: 400.ms),
+
+              const SizedBox(height: s16),
+
+              Text(
+                context.localization.subscription_section_subtitle,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.dmSans(fontSize: tx16, color: kMuted),
+              ).animate().fadeIn(delay: 200.ms),
+
+              const SizedBox(height: s40),
+
+              _BillingToggle(isYearly: isYearly),
+
+              const SizedBox(height: s48),
+
+              ScreenTypeLayout.builder(
+                mobile: (context) => _buildVerticalLayout(context, isYearly),
+                tablet: (context) => _buildHorizontalLayout(context, isYearly),
+                desktop: (context) => _buildHorizontalLayout(context, isYearly),
+              ),
+            ],
           ),
         ),
       ),
@@ -82,7 +91,6 @@ class SubscriptionSection extends ConsumerWidget {
             context.localization.subscription_section_basic_feature_2,
             context.localization.subscription_section_basic_feature_3,
           ],
-          isPopular: false,
           isExpanded: false,
         ),
         const SizedBox(height: s24),
@@ -110,7 +118,6 @@ class SubscriptionSection extends ConsumerWidget {
             context.localization.subscription_section_pro_feature_3,
             context.localization.subscription_section_pro_feature_4,
           ],
-          isPopular: false,
           isExpanded: false,
         ),
       ],
@@ -135,7 +142,7 @@ class SubscriptionSection extends ConsumerWidget {
               isExpanded: true,
             ),
           ),
-          const SizedBox(width: s24),
+          const SizedBox(width: s20),
           Expanded(
             child: _PricingCard(
               title: context.localization.subscription_section_business_title,
@@ -151,7 +158,7 @@ class SubscriptionSection extends ConsumerWidget {
               isExpanded: true,
             ),
           ),
-          const SizedBox(width: s24),
+          const SizedBox(width: s20),
           Expanded(
             child: _PricingCard(
               title: context.localization.subscription_section_pro_title,
@@ -172,6 +179,9 @@ class SubscriptionSection extends ConsumerWidget {
   }
 }
 
+// ─────────────────────────────────────────────
+// Billing Toggle
+// ─────────────────────────────────────────────
 class _BillingToggle extends ConsumerWidget {
   final bool isYearly;
   const _BillingToggle({required this.isYearly});
@@ -181,9 +191,9 @@ class _BillingToggle extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(s4),
       decoration: BoxDecoration(
-        color: kWhite,
-        borderRadius: BorderRadius.circular(s32),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        color: kSurface,
+        borderRadius: BorderRadius.circular(s4),
+        border: Border.all(color: kBorderDark),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -215,22 +225,29 @@ class _ToggleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: s24, vertical: s12),
-        decoration: BoxDecoration(color: isActive ? kPrimary : kTransparent, borderRadius: BorderRadius.circular(s32)),
+        decoration: BoxDecoration(
+          color: isActive ? kPrimary : kTransparent,
+          borderRadius: BorderRadius.circular(s2),
+        ),
         child: Text(
           label,
-          style: GoogleFonts.inter(
+          style: GoogleFonts.dmSans(
             fontSize: tx14,
             fontWeight: FontWeight.w600,
-            color: isActive ? kWhite : const Color(0xFF64748B),
+            color: isActive ? kSecondary : kMuted,
           ),
         ),
-      ).animate(target: isActive ? 1 : 0).tint(color: kPrimary.withValues(alpha: 0.1)),
+      ),
     );
   }
 }
 
+// ─────────────────────────────────────────────
+// Pricing Card
+// ─────────────────────────────────────────────
 class _PricingCard extends StatefulWidget {
   final String title;
   final String price;
@@ -257,33 +274,29 @@ class _PricingCardState extends State<_PricingCard> {
 
   @override
   Widget build(BuildContext context) {
-    final accentColor = kPrimary;
-
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final bool isSmallCard = screenWidth < 400;
-    final double currentIconSize = isSmallCard ? s48 : s64;
-    final double horizontalPadding = isSmallCard ? s16 : s32;
+    final isHighlighted = widget.isPopular || _isHovered;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
-      child:
-      AnimatedContainer(
+      child: AnimatedContainer(
         duration: 300.ms,
         curve: Curves.easeInOut,
-        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: s24),
+        padding: const EdgeInsets.all(s28),
         decoration: BoxDecoration(
-          color: kWhite,
-          borderRadius: BorderRadius.circular(s24),
+          color: kSurface,
+          borderRadius: BorderRadius.circular(s4),
           border: Border.all(
-            color: _isHovered ? accentColor : const Color(0xFFE2E8F0),
-            width: _isHovered ? 2 : 1,
+            color: isHighlighted ? kPrimary.withValues(alpha: 0.7) : kBorderDark,
+            width: isHighlighted ? 1.5 : 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: _isHovered ? accentColor.withValues(alpha: 0.1) : kBlack.withValues(alpha: 0.03),
-              blurRadius: _isHovered ? 30 : 20,
-              offset: const Offset(0, 10),
+              color: isHighlighted
+                  ? kPrimary.withValues(alpha: 0.12)
+                  : kBlack.withValues(alpha: 0.3),
+              blurRadius: isHighlighted ? 32 : 16,
+              offset: const Offset(0, 8),
             ),
           ],
         ),
@@ -291,28 +304,30 @@ class _PricingCardState extends State<_PricingCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            // Popular badge — only renders for popular card
+            // Popular badge
             if (widget.isPopular)
               Container(
                 margin: const EdgeInsets.only(bottom: s16),
                 padding: const EdgeInsets.symmetric(horizontal: s12, vertical: s4),
                 decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: .1),
-                  borderRadius: BorderRadius.circular(s12),
+                  color: kPrimary.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(s2),
+                  border: Border.all(color: kPrimary.withValues(alpha: 0.4)),
                 ),
                 child: Text(
                   context.localization.subscription_section_most_popular,
-                  style: GoogleFonts.inter(
+                  style: GoogleFonts.dmSans(
                     fontSize: tx12,
-                    fontWeight: FontWeight.bold,
-                    color: accentColor,
+                    fontWeight: FontWeight.w700,
+                    color: kPrimary,
+                    letterSpacing: 0.5,
                   ),
                 ),
               )
             else
               const SizedBox(height: s4),
 
-            // Header Row
+            // Header row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,10 +340,10 @@ class _PricingCardState extends State<_PricingCard> {
                         widget.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.poppins(
-                          fontSize: tx24,
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: tx22,
                           fontWeight: FontWeight.bold,
-                          color: kSecondary,
+                          color: kCream,
                         ),
                       ),
                       const SizedBox(height: s8),
@@ -340,17 +355,17 @@ class _PricingCardState extends State<_PricingCard> {
                           children: [
                             Text(
                               "\$${widget.price}",
-                              style: GoogleFonts.poppins(
-                                fontSize: tx48,
+                              style: GoogleFonts.playfairDisplay(
+                                fontSize: tx42,
                                 fontWeight: FontWeight.bold,
-                                color: kSecondary,
+                                color: kPrimary,
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(bottom: s12, left: s4),
+                              padding: const EdgeInsets.only(bottom: s10, left: s6),
                               child: Text(
                                 context.localization.subscription_section_per_month,
-                                style: GoogleFonts.inter(fontSize: tx16, color: const Color(0xFF64748B)),
+                                style: GoogleFonts.dmSans(fontSize: tx14, color: kMuted),
                               ),
                             ),
                           ],
@@ -362,67 +377,76 @@ class _PricingCardState extends State<_PricingCard> {
                 const SizedBox(width: s8),
                 Image.asset(
                   widget.iconPath,
-                  width: currentIconSize,
-                  height: currentIconSize,
-                  errorBuilder: (context, error, stackTrace) =>
-                      Icon(Icons.star, size: currentIconSize, color: accentColor),
+                  width: s52,
+                  height: s52,
+                  errorBuilder: (context, error, stack) =>
+                      Icon(Icons.star, size: s52, color: kPrimary),
                 ),
               ],
             ),
 
-            const SizedBox(height: s32),
-            const Divider(color: Color(0xFFF1F5F9)),
-            const SizedBox(height: s32),
+            const SizedBox(height: s28),
+            Container(height: 1, color: kDividerDark),
+            const SizedBox(height: s28),
 
-            // Features List
+            // Features
             ...widget.features.map(
-                  (feature) =>
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: s16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.check_circle, size: s20, color: accentColor),
-                        const SizedBox(width: s12),
-                        Expanded(
-                          child: Text(
-                            feature,
-                            style: GoogleFonts.inter(fontSize: tx14, color: const Color(0xFF475569)),
-                          ),
-                        ),
-                      ],
+              (feature) => Padding(
+                padding: const EdgeInsets.only(bottom: s14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 2),
+                      width: 18,
+                      height: 18,
+                      decoration: BoxDecoration(
+                        color: kPrimary.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(s2),
+                      ),
+                      child: const Icon(Icons.check, size: 12, color: kPrimary),
                     ),
-                  ),
+                    const SizedBox(width: s12),
+                    Expanded(
+                      child: Text(
+                        feature,
+                        style: GoogleFonts.dmSans(fontSize: tx14, color: kMuted, height: 1.5),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
 
-            // Conditional spacer: only used when intrinsic height constraints are fixed (Desktop/Tablet)
-            if (widget.isExpanded) const Spacer() else
-              const SizedBox(height: s32),
+            if (widget.isExpanded) const Spacer() else const SizedBox(height: s28),
 
-            // Action Button
+            // CTA
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: widget.isPopular ? accentColor : kWhite,
-                  foregroundColor: widget.isPopular ? kWhite : accentColor,
+                  backgroundColor: widget.isPopular ? kPrimary : kTransparent,
+                  foregroundColor: widget.isPopular ? kSecondary : kPrimary,
                   elevation: 0,
-                  padding: const EdgeInsets.symmetric(vertical: s20),
-                  side: BorderSide(color: accentColor),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(s12)),
+                  padding: const EdgeInsets.symmetric(vertical: s18),
+                  side: BorderSide(color: kPrimary, width: widget.isPopular ? 0 : 1),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(s2)),
                 ),
                 child: Text(
                   context.localization.subscription_section_get_started,
-                  style: GoogleFonts.inter(fontSize: tx16, fontWeight: FontWeight.w600),
+                  style: GoogleFonts.dmSans(
+                    fontSize: tx14,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.5,
+                  ),
                 ),
               ),
             ),
           ],
         ),
-      )
-          .animate(target: _isHovered ? 1 : 0)
-          .elevation(begin: 0, end: 8, curve: Curves.easeOutCubic),
+      ),
     );
   }
 }
+

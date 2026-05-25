@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
+import 'core/extensions/theme_ex.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/router/app_router.dart';
 import 'firebase_options.dart';
@@ -25,8 +26,9 @@ class HomezApp extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
 
     return MaterialApp.router(
-      title: 'Homez',
+      title: 'HomeFindr',
       debugShowCheckedModeBanner: false,
+      theme: context.theme(),
       locale: locale,
       supportedLocales: kSupportedLocales,
       localizationsDelegates: const [
@@ -35,7 +37,6 @@ class HomezApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-
       routerConfig: AppRouter.router,
     );
   }

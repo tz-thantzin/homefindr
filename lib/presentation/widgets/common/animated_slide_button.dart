@@ -163,7 +163,7 @@ class _AnimatedSlideButtonState extends State<AnimatedSlideButton> with SingleTi
               softWrap: false,
             ),
           ),
-          SizedBox(width: s8),
+          const SizedBox(width: s8),
           SlideTransition(
             position: _offsetAnimation,
             child: widget.isLoading

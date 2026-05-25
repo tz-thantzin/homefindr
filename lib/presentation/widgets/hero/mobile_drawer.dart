@@ -128,7 +128,7 @@ class MobileDrawer extends StatelessWidget {
               context.localization.nav_login_register,
               style: const TextStyle(color: kWhite, fontWeight: FontWeight.w600),
             ),
-            onTap: () {},
+            onTap: null,
           ),
           const SizedBox(height: s10),
           SizedBox(

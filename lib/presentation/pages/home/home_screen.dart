@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:homefindr/presentation/widgets/subscription/subscription_section.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../../../../core/constants/constant_colors.dart';
 import '../../../../core/extensions/context_ex.dart';
 import '../../widgets/common/nav_logo.dart';
 import '../../widgets/footer/footer_section.dart';
@@ -55,21 +56,24 @@ class _MobileScrollNavBar extends StatefulWidget {
 
 class _MobileScrollNavBarState extends State<_MobileScrollNavBar> {
   bool _isScrolled = false;
+  ScrollController? _scrollController;
 
   void _onScroll() {
-    final scrolled = PrimaryScrollController.of(context).offset > 50;
+    final scrolled = (_scrollController?.offset ?? 0) > 50;
     if (scrolled != _isScrolled) setState(() => _isScrolled = scrolled);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    PrimaryScrollController.of(context).addListener(_onScroll);
+    _scrollController?.removeListener(_onScroll);
+    _scrollController = PrimaryScrollController.maybeOf(context);
+    _scrollController?.addListener(_onScroll);
   }
 
   @override
   void dispose() {
-    PrimaryScrollController.of(context).removeListener(_onScroll);
+    _scrollController?.removeListener(_onScroll);
     super.dispose();
   }
 
@@ -78,8 +82,8 @@ class _MobileScrollNavBarState extends State<_MobileScrollNavBar> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       color: _isScrolled
-          ? const Color(0xFF1D293F).withValues(alpha: 0.97)
-          : Colors.black.withValues(alpha: 0.2),
+          ? kSecondary.withValues(alpha: 0.97)
+          : kBlack.withValues(alpha: 0.2),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,7 +93,7 @@ class _MobileScrollNavBarState extends State<_MobileScrollNavBar> {
               .fadeIn(duration: 400.ms)
               .slideX(begin: -0.2, end: 0),
           IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white, size: 26),
+            icon: const Icon(Icons.menu, color: kWhite, size: 26),
             onPressed: () => Scaffold.of(context).openDrawer(),
           )
               .animate()

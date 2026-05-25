@@ -14,15 +14,24 @@ extension ThemeEx on BuildContext {
   ThemeData theme() {
     return ThemeData(
       useMaterial3: true,
-      scaffoldBackgroundColor: kWhite,
+      scaffoldBackgroundColor: kSecondary,
       appBarTheme: appBarTheme,
-      textTheme: GoogleFonts.robotoTextTheme(textTheme),
+      textTheme: textTheme,
       textSelectionTheme: textSelectionTheme,
       colorScheme: colorScheme,
       iconTheme: iconTheme,
       highlightColor: kTransparent,
       focusColor: kPrimary,
       inputDecorationTheme: inputDecorationTheme,
+      dividerColor: kDividerDark,
+      drawerTheme: const DrawerThemeData(backgroundColor: kCanvas),
+      popupMenuTheme: const PopupMenuThemeData(color: kSurface),
+      dropdownMenuTheme: const DropdownMenuThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: kSurface,
+          filled: true,
+        ),
+      ),
     );
   }
 
@@ -32,8 +41,8 @@ extension ThemeEx on BuildContext {
       elevation: 0,
       toolbarHeight: s100,
       centerTitle: false,
-      titleTextStyle: labelLarge.copyWith(fontWeight: bold, color: kWhite),
-      foregroundColor: kWhite,
+      titleTextStyle: labelLarge.copyWith(fontWeight: bold, color: kCream),
+      foregroundColor: kCream,
     );
   }
 
@@ -50,83 +59,86 @@ extension ThemeEx on BuildContext {
 
   TextTheme get textTheme {
     return TextTheme(
-      displayLarge: displayLarge,
-      displayMedium: displayMedium,
-      displaySmall: displaySmall,
-      headlineLarge: headlineLarge,
-      headlineMedium: headlineMedium,
-      headlineSmall: headlineSmall,
-      titleLarge: titleLarge,
-      titleMedium: titleMedium,
-      titleSmall: titleSmall,
-      bodyLarge: bodyLarge,
-      bodyMedium: bodyMedium,
-      bodySmall: bodySmall,
-      labelLarge: labelLarge,
-      labelMedium: labelMedium,
-      labelSmall: labelSmall,
-    ).apply(
-      bodyColor: kBlack,
-      displayColor: kBlack,
+      // Playfair Display for editorial display / headline / title
+      displayLarge: GoogleFonts.playfairDisplay(fontSize: s96, fontWeight: semiBold, color: kCream),
+      displayMedium: GoogleFonts.playfairDisplay(fontSize: s70, fontWeight: semiBold, color: kCream),
+      displaySmall: GoogleFonts.playfairDisplay(fontSize: s60, fontWeight: bold, color: kCream),
+      headlineLarge: GoogleFonts.playfairDisplay(fontSize: s100, fontWeight: semiBold, color: kCream),
+      headlineMedium: GoogleFonts.playfairDisplay(fontSize: s80, fontWeight: semiBold, color: kCream),
+      headlineSmall: GoogleFonts.playfairDisplay(fontSize: s64, fontWeight: bold, color: kCream),
+      titleLarge: GoogleFonts.playfairDisplay(fontSize: s48, fontWeight: bold, color: kCream),
+      titleMedium: GoogleFonts.playfairDisplay(fontSize: s42, fontWeight: bold, color: kCream),
+      titleSmall: GoogleFonts.playfairDisplay(fontSize: s36, fontWeight: bold, color: kCream),
+      // DM Sans for body text
+      bodyLarge: GoogleFonts.dmSans(fontSize: s16, fontWeight: medium, color: kMuted),
+      bodyMedium: GoogleFonts.dmSans(fontSize: s14, fontWeight: medium, color: kMuted),
+      bodySmall: GoogleFonts.dmSans(fontSize: s10, fontWeight: medium, color: kMuted),
+      labelLarge: GoogleFonts.dmSans(fontSize: s28, fontWeight: bold, color: kCream),
+      labelMedium: GoogleFonts.dmSans(fontSize: s24, fontWeight: semiBold, color: kCream),
+      labelSmall: GoogleFonts.dmSans(fontSize: s20, fontWeight: semiBold, color: kCream),
     );
   }
 
   TextSelectionThemeData get textSelectionTheme {
     return const TextSelectionThemeData(
       cursorColor: kPrimary,
-      selectionColor: kGrey500,
+      selectionColor: kGrey1200,
       selectionHandleColor: kPrimary,
     );
   }
 
   IconThemeData get iconTheme {
-    return const IconThemeData(color: kBlack);
+    return const IconThemeData(color: kCream);
   }
 
   ColorScheme get colorScheme {
     return const ColorScheme(
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       primary: kPrimary,
-      onPrimary: kWhite,
-      secondary: kSecondary,
-      onSecondary: kWhite,
+      onPrimary: kSecondary,
+      secondary: kCanvas,
+      onSecondary: kCream,
       error: kRed,
       onError: kWhite,
-      surface: kGrey100,
-      onSurface: kBlack,
+      surface: kSurface,
+      onSurface: kCream,
     );
   }
 
-  /// ---------------- Text Styles ----------------
+  /// ---------------- Text Styles (direct use) ----------------
 
   TextStyle get displayLarge =>
-      const TextStyle(fontSize: s96, fontWeight: semiBold);
+      GoogleFonts.playfairDisplay(fontSize: s96, fontWeight: semiBold, color: kCream);
   TextStyle get displayMedium =>
-      const TextStyle(fontSize: s70, fontWeight: semiBold);
+      GoogleFonts.playfairDisplay(fontSize: s70, fontWeight: semiBold, color: kCream);
   TextStyle get displaySmall =>
-      const TextStyle(fontSize: s60, fontWeight: bold);
+      GoogleFonts.playfairDisplay(fontSize: s60, fontWeight: bold, color: kCream);
 
   TextStyle get headlineLarge =>
-      const TextStyle(fontSize: s100, fontWeight: semiBold);
+      GoogleFonts.playfairDisplay(fontSize: s100, fontWeight: semiBold, color: kCream);
   TextStyle get headlineMedium =>
-      const TextStyle(fontSize: s80, fontWeight: semiBold);
+      GoogleFonts.playfairDisplay(fontSize: s80, fontWeight: semiBold, color: kCream);
   TextStyle get headlineSmall =>
-      const TextStyle(fontSize: s64, fontWeight: bold);
+      GoogleFonts.playfairDisplay(fontSize: s64, fontWeight: bold, color: kCream);
 
-  TextStyle get titleLarge => const TextStyle(fontSize: s48, fontWeight: bold);
-  TextStyle get titleMedium => const TextStyle(fontSize: s42, fontWeight: bold);
-  TextStyle get titleSmall => const TextStyle(fontSize: s36, fontWeight: bold);
+  TextStyle get titleLarge =>
+      GoogleFonts.playfairDisplay(fontSize: s48, fontWeight: bold, color: kCream);
+  TextStyle get titleMedium =>
+      GoogleFonts.playfairDisplay(fontSize: s42, fontWeight: bold, color: kCream);
+  TextStyle get titleSmall =>
+      GoogleFonts.playfairDisplay(fontSize: s36, fontWeight: bold, color: kCream);
 
-  TextStyle get labelLarge => const TextStyle(fontSize: s28, fontWeight: bold);
+  TextStyle get labelLarge =>
+      GoogleFonts.dmSans(fontSize: s28, fontWeight: bold, color: kCream);
   TextStyle get labelMedium =>
-      const TextStyle(fontSize: s24, fontWeight: semiBold);
+      GoogleFonts.dmSans(fontSize: s24, fontWeight: semiBold, color: kCream);
   TextStyle get labelSmall =>
-      const TextStyle(fontSize: s20, fontWeight: semiBold);
+      GoogleFonts.dmSans(fontSize: s20, fontWeight: semiBold, color: kCream);
 
   TextStyle get bodyLarge =>
-      const TextStyle(fontSize: s16, fontWeight: medium, color: kBlack);
+      GoogleFonts.dmSans(fontSize: s16, fontWeight: medium, color: kMuted);
   TextStyle get bodyMedium =>
-      const TextStyle(fontSize: s14, fontWeight: medium, color: kBlack);
+      GoogleFonts.dmSans(fontSize: s14, fontWeight: medium, color: kMuted);
   TextStyle get bodySmall =>
-      const TextStyle(fontSize: s10, fontWeight: medium);
+      GoogleFonts.dmSans(fontSize: s10, fontWeight: medium, color: kMuted);
 }
